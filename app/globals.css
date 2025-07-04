@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "~react-toastify/dist/ReactToastify.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+@layer base {
+  * {
+    font-family: "Poppins", sans-serif;
+  }
+}
+
+@layer utilities {
+  .select-black-placeholder .ant-select-selection-placeholder {
+    @apply text-black;
+  }
+
+  .select-black-icon.ant-select .ant-select-arrow {
+    @apply text-black;
+  }
+}
+
+/* Scrollbar Styles - Light */
+
+/* Firefox (all modes) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4194b4 #ecf0f1;
+}
+.dark * {
+  scrollbar-color: #096ad8 #1e293b;
+}
