@@ -1,4 +1,4 @@
-## Hikar
+## Praidux
 
 First, run the development server:
 
