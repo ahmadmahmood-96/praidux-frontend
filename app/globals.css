@@ -2,13 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "~react-toastify/dist/ReactToastify.min.css";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-@layer base {
-  * {
-    font-family: "Poppins", sans-serif;
-  }
-}
 
 @layer utilities {
   .select-black-placeholder .ant-select-selection-placeholder {
@@ -29,4 +23,18 @@
 }
 .dark * {
   scrollbar-color: #096ad8 #1e293b;
+}
+.font-poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+.font-roboto {
+  font-family: "Roboto", sans-serif;
+}
+
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('/font/ClashDisplay_Complete/Fonts/OTF/ClashDisplay-Semibold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
 }

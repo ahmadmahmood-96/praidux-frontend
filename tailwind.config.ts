@@ -9,19 +9,12 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: [
-          "Poppins",
-          "ui-sans-serif",
-          "system-ui",
-          "-apple-system",
-          "BlinkMacSystemFont",
-          "Segoe UI",
-          "Roboto",
-          "Helvetica Neue",
-          "Arial",
-          "Noto Sans",
-          "sans-serif",
-        ],
+        clash: ['ClashDisplay', 'sans-serif'],
+        poppins: ['var(--font-poppins)', 'sans-serif'],
+        roboto: ['var(--font-roboto)', 'sans-serif'],
+        inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
+        lato: ['var(--font-lato)', 'Lato', 'sans-serif'],
+         caveat: ['var(--font-caveat)'],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

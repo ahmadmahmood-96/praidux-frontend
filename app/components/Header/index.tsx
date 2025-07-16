@@ -1,101 +1,205 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, Moon, Square, Sun } from "lucide-react";
-import links from "@/app/links";
-import { Tooltip } from "antd";
-import { toggleTheme } from "@/redux/features/theme-slice";
-import { useDispatch } from "react-redux";
-import { AppDispatch, useAppSelector } from "@/redux/store";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+import "./header.css";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Dialog,
+  DialogContent,
+  List,
+  ListItemText,
+  Button,
+  useMediaQuery,
+} from "@mui/material";
+import ListItem from "@mui/material/ListItem";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
-export default function Header() {
-  const dispatch = useDispatch<AppDispatch>();
-  const theme = useAppSelector((state) => state.themeReducer.value.lightMode);
-  const currentLocation = usePathname();
+const Navbar: React.FC = () => {
+  const router = useRouter();
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const isSignedIn =
+    typeof window !== "undefined" && localStorage?.getItem("WebTradeToken");
+  const isMobile = useMediaQuery("(max-width:1000px)");
+  const menuItems: string[] = [
+    "Projects",
+    "Process",
+    "Blogs",
+    "Testimonials",
+    "FAQs",
+    "Contact Us",
+  ];
+
+  const Links: string[] = [
+    "/",
+    "/#how-it-works-section",
+    "/#features-section",
+    "/brokers",
+    "/blogs",
+  ];
+
+  const handleNav = async (index: number) => {
+    const scrollTargets = {
+      1: "how-it-works-section",
+      2: "features-section",
+      4: "blog-section",
+    } as Record<number, string>;
+
+    const target = scrollTargets[index];
+
+    if (target) {
+      if (typeof window !== "undefined" && window.location.pathname === "/") {
+        // Scroll directly
+        document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        // Navigate then scroll via query
+        await router.push(`/?scrollTo=${target}`);
+      }
+    } else {
+      router.push(Links[index]);
+    }
+
+    setDrawerOpen(false);
+  };
+
   return (
-    <>
-      <header>
-        <nav className="flex justify-between items-center w-[94%] mx-auto my-4">
-          <div className="logo flex items-center">
-            <Link href="/" className="block">
-              <Image
-                src="/hikar-logo.png"
-                alt="Hikar Logo"
-                width={120}
-                height={50}
-                priority
-                className="w-auto h-12 object-contain"
-              />
-            </Link>
-          </div>
+    <AppBar position="static" className="navbar">
+      <Toolbar
+        className="toolbar"
+        sx={{
+          minHeight: 0,
+          width: "100%",
+          px: { xs: 0, sm: 0 },
+        }}
+      >
+        <div className="navbar-section logo-left">
+          <Image
+            src="/praidux-logo.png"
+            alt="Logo"
+            width={83}
+            height={28}
+            className="w-[73px] h-auto"
+          />
+        </div>
 
-          <div className="hidden lg:min-h-fit lg:flex items-center px-5">
-            <ul className="flex md:flex-row md:items-center gap-2">
-              {links.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className={` mx-4 hover:text-teal text-[18px]
-                    ${
-                      currentLocation.startsWith(link.href) &&
-                      (currentLocation[link.href.length] === "/" ||
-                        currentLocation.length === link.href.length) &&
-                      "border-b-[3px] border-teal"
-                    }
-                  `}
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="flex items-center gap-4">
-            {theme ? (
-              <Tooltip title="Switch to Dark Mode" placement="bottomLeft">
-                <Moon
-                  onClick={() => dispatch(toggleTheme())}
-                  className="cursor-pointer"
-                />
-              </Tooltip>
-            ) : (
-              <Tooltip title="Switch to Light Mode" placement="bottomLeft">
-                <Sun
-                  onClick={() => dispatch(toggleTheme())}
-                  className="cursor-pointer"
-                />
-              </Tooltip>
-            )}
-            <details className="dropdown dropdown-end lg:hidden">
-              <summary className="btn m-1">
-                <Menu />
-              </summary>
-              <ul className="dropdown-content menu bg-base-100 rounded-box z-[999] w-52 p-2 shadow">
-                {links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className={`text-secondaryText mx-2
-                        ${
-                          currentLocation.startsWith(link.href) &&
-                          (currentLocation[link.href.length] === "/" ||
-                            currentLocation.length === link.href.length) &&
-                          "bg-primary text-white"
-                        }
-                      `}
+        {isMobile ? (
+          <div className="navbar-section mobile-menu-right">
+            <IconButton
+              edge="end"
+              onClick={() => setDrawerOpen(true)}
+              className="menu-btn"
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <Dialog
+              open={drawerOpen}
+              onClose={() => setDrawerOpen(false)}
+              fullScreen
+              hideBackdrop
+              PaperProps={{
+                sx: {
+                  width: "calc(100% - 32px)",
+                  height: "fit-content",
+                  margin: "16px",
+                  borderRadius: 3,
+                  overflow: "hidden",
+                  position: "absolute",
+                  top: "8%",
+                  right: 0,
+                },
+              }}
+            >
+              <DialogContent
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 2,
+                  px: 4,
+                  py: 3,
+                  position: "relative",
+                  padding: "20px",
+                }}
+              >
+                <List>
+                  {menuItems.map((item, index) => (
+                    <ListItem
+                      component="button"
+                      key={index}
+                      onClick={() => handleNav(index)}
+                      sx={{
+                        paddingX: 0,
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
                     >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </details>
+                      <ListItemText
+                        primary={item}
+                        primaryTypographyProps={{
+                          // fontFamily: "Roboto",
+                          fontSize: "18px",
+                          color: "#1A202C",
+                          paddingX: 0,
+                        }}
+                      />
+                    </ListItem>
+                  ))}
+
+                  <ListItem sx={{ paddingX: 0 }}>
+                    <Button
+                      className="font-poppins"
+                      variant="contained"
+                      sx={{
+                        borderRadius: "25px",
+                        background: "#FF5F1F",
+                        paddingX: "24px",
+                        paddingY: "8px",
+                        fontSize: "14px",
+                        width: "fit-content",
+                        textTransform: "none",
+                        boxShadow: "none",
+                        "&:hover": {
+                          opacity: 0.95,
+                          background: "#FF5F1F",
+                        },
+                      }}
+                      // onClick={() => {
+                      //   router.push(isSignedIn ? "/dashboard" : "/login");
+                      // }}
+                    >
+                      Contact Us
+                    </Button>
+                  </ListItem>
+                </List>
+              </DialogContent>
+            </Dialog>
           </div>
-        </nav>
-      </header>
-    </>
+        ) : (
+          <>
+            <div className="centerdiv">
+              {menuItems.map((item, index) => (
+                <p
+                  key={index}
+                  className="navbar-items font-roboto font-normal hover:font-semibold"
+                  onClick={() => handleNav(index)}
+                >
+                  {item}
+                </p>
+              ))}
+            </div>
+            <div className="navbar-section login-right">
+              <button className="login-button">Contact Us</button>
+            </div>
+          </>
+        )}
+      </Toolbar>
+    </AppBar>
   );
-}
+};
+
+export default Navbar;

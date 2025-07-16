@@ -1,11 +1,13 @@
-import BodyStyleSection from "./bodyStyle";
-import HeroSection from "./heroSection";
 
+import Faq from "./faq";
+import Contactus from "./contactus"
+import Hero from "./hero";
 export default function LandingPage() {
   return (
-    <>
-      <HeroSection />
-      <BodyStyleSection />
-    </>
+    <div className="bg-[#FAFAFA]">
+      <Hero />
+      <Contactus />
+      <Faq />
+    </div>
   );
 }
