@@ -37,6 +37,31 @@ select:-webkit-autofill {
   -webkit-text-fill-color: #000 !important;
   background-color: transparent !important;
 }
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Adjust how far you want it to move */
+  }
+}
+
+.animate-slide {
+  animation: slide-left 30s linear infinite;
+}
+@keyframes slide-right {
+  0% {
+    transform: translateX(-50%); /* Start at the duplicate set */
+  }
+  100% {
+    transform: translateX(0); /* Move rightward to original set */
+  }
+}
+
+.animatedd-slide {
+  animation: slide-right 40s linear infinite;
+}
+
 
 @font-face {
   font-family: "ClashDisplay";
