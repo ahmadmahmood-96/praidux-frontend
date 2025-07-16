@@ -38,8 +38,7 @@ export default function Hero() {
       </p>
       <div className="flex flex-col gap-[18px] items-center">
         <p className="font-roboto text-center font-normal text-[18px] text-[#000000] leading-[100%] max-[630px]:text-[16px] max-[525px]:text-[14px] max-[420px]:text-[12px]">
-          We're a design & development partner for startup founders and online
-          brands.
+         We&apos;re a design &amp; development partner for startup founders and online brands.
         </p>
         <div className="flex gap-[24px] w-full justify-center items-center">
           <button className="bg-[#FF5F1F] rounded-[40px] px-[21px] py-[12px] border-none font-poppins font-medium  text-[16px] text-[#CBD5E1] leading-[100%] text-[#FFFFFF] max-[525px]:text-[14px] max-[420px]:text-[12px]">
