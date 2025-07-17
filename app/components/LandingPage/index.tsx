@@ -10,8 +10,9 @@ export default function LandingPage() {
     <div className="bg-[#FAFAFA]">
       <Hero />
       <ProjectSlider/>
-      <ManagementValue />
+    
       <StaticTestimonial/>
+        <ManagementValue />
       <Contactus />
       <Faq />
     </div>
