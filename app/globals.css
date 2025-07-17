@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 @import "~react-toastify/dist/ReactToastify.min.css";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
-
-@layer base {
-  * {
-    font-family: "Poppins", sans-serif;
-  }
-}
 
 @layer utilities {
   .select-black-placeholder .ant-select-selection-placeholder {
@@ -20,6 +13,10 @@
   }
 }
 
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif;
+}
+
 /* Scrollbar Styles - Light */
 
 /* Firefox (all modes) */
@@ -29,4 +26,51 @@
 }
 .dark * {
   scrollbar-color: #096ad8 #1e293b;
+}
+.font-poppins {
+  font-family: "Poppins", sans-serif;
+}
+
+.font-roboto {
+  font-family: "Roboto", sans-serif;
+}
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000 !important;
+  background-color: transparent !important;
+}
+@keyframes slide-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Adjust how far you want it to move */
+  }
+}
+
+.animate-slide {
+  animation: slide-left 30s linear infinite;
+}
+@keyframes slide-right {
+  0% {
+    transform: translateX(-50%); /* Start at the duplicate set */
+  }
+  100% {
+    transform: translateX(0); /* Move rightward to original set */
+  }
+}
+
+.animatedd-slide {
+  animation: slide-right 40s linear infinite;
+}
+
+
+@font-face {
+  font-family: "ClashDisplay";
+  src: url("/font/ClashDisplay_Complete/Fonts/OTF/ClashDisplay-Semibold.otf")
+    format("opentype");
+  font-weight: 600;
+  font-style: normal;
 }
