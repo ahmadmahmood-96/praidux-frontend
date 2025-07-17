@@ -14,7 +14,7 @@ export default function StaticTestimonial() {
           Hear it from our clients
         </p>
       </div>
-     <div className="columns-3 max-[850px]:columns-2 max-[600px]:columns-1 gap-[20px] mb-[20px]">
+     <div className="columns-3 max-[850px]:columns-2 max-[600px]:columns-1 gap-[20px]">
         <div style={{ breakInside: "avoid", marginBottom: "20px" }}>
           <StaticTestimonialCard
             title="Project Logo"

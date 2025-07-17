@@ -40,7 +40,7 @@ export default function Hero() {
          We&apos;re a design &amp; development partner for startup founders and online brands.
         </p>
         <div className="flex gap-[24px] w-full justify-center items-center">
-          <button className="bg-[#FF5F1F] rounded-[40px] px-[21px] py-[12px] border-none font-Pop font-medium  text-[16px] leading-[100%] text-[#FFFFFF] max-[525px]:text-[14px] max-[525px]:px-[15px] max-[525px]:py-[10px] max-[420px]:text-[12px]">
+          <button className="bg-[#FF5F1F] rounded-[40px] px-[21px] py-[12px] cursor-pointer border-none font-Pop font-medium  text-[16px] leading-[100%] text-[#FFFFFF] max-[525px]:text-[14px] max-[525px]:px-[15px] max-[525px]:py-[10px] max-[420px]:text-[12px]">
             Contact Us
           </button>
           <p className="font-roboto font-normal text-[18px] text-[#000000] leading-[100%] max-[630px]:text-[16px] max-[525px]:text-[14px] max-[420px]:text-[12px]">

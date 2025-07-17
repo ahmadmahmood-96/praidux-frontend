@@ -162,6 +162,7 @@ const Navbar: React.FC = () => {
                         fontSize: "14px",
                         width: "fit-content",
                         textTransform: "none",
+                        cursor:"pointer",
                         boxShadow: "none",
                         "&:hover": {
                           opacity: 0.95,
@@ -193,7 +194,7 @@ const Navbar: React.FC = () => {
               ))}
             </div>
             <div className="navbar-section login-right">
-              <button className="login-button">Contact Us</button>
+              <button className="login-button cursor-pointer">Contact Us</button>
             </div>
           </>
         )}

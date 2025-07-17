@@ -24,12 +24,12 @@ export default function StaticTestimonialCard({
       </p>
 
     {imageSrc && (
-  <div className="rounded-[8px] h-[239px] w-full">
+  <div className="rounded-[8px] h-[239px] w-full relative ">
     <Image
       src={imageSrc}
       alt={title}
       fill
-      className="object-cover rounded-[8px]"
+      className=" rounded-[8px] w-fit"
     />
   </div>
 )}
