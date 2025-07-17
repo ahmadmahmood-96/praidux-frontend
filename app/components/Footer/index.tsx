@@ -95,7 +95,7 @@ export default function Footer() {
       </div>
       <div className="px-[136.8px] bg-[#1E293B] h-[0.9px] w-full"></div>
       <div className="w-full flex items-center justify-center">
-        <p className="font-poppins font-normal text-center text-[12.6px] text-[#CBD5E1] leading-[19.8px] max-[400px]:font-[11px]">
+        <p className="font-Pop font-normal text-center text-[12.6px] text-[#CBD5E1] leading-[19.8px] max-[400px]:font-[11px]">
           © Copyright 2025, All Rights Reserved by Praidux
         </p>
       </div>

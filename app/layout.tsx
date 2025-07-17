@@ -93,7 +93,7 @@ function ThemedLayout({ children }: { children: React.ReactNode }) {
   return (
     <html data-theme={theme ? "light" : "dark"} lang="en">
       <body
-        className={`${poppins.variable} ${lato.variable} ${roboto.variable} ${inter.variable} ${caveat.variable} font-sans`}
+        className={`${poppins.variable} ${lato.variable} ${roboto.variable} ${inter.variable} ${caveat.variable} font-poppins`}
       >
         <Header />
         {children}

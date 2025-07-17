@@ -36,7 +36,7 @@ export default function Faq() {
         <div className="flex flex-col gap-[8px]">
           <div className="flex gap-[8px] items-center">
             <Image src="/dot.svg" alt="dot" width={9} height={9} />
-            <p className="font-poppins font-semibold text-[16px] text-[#123042] leading-[25.2px]">
+            <p className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
               FAQs
             </p>
           </div>
@@ -46,7 +46,7 @@ export default function Faq() {
         </div>
         <div className="px-[24px] py-[16px] flex gap-[24px] bg-[#FF5F1F] rounded-[16px] justify-between max-[470px]:p-[15px] max-[470px]:gap-[15px] max-[420px]:flex-col">
           <div>
-            <p className="font-poppins font-semibold text-[16px] text-[#FFFFFF] leading-[25.2px] max-[951px]:text-[14px]">
+            <p className="font-Pop font-semibold text-[16px] text-[#FFFFFF] leading-[25.2px] max-[951px]:text-[14px]">
               Have a question?
             </p>
             <p className="font-inter font-normal text-[16px] text-[#FFFFFF] leading-[150%]  max-[951px]:text-[14px]">
@@ -67,7 +67,7 @@ export default function Faq() {
                 key={index}
               >
                 <div className="flex flex-col gap-[8px]">
-                  <p className="font-poppins font-medium text-[16px] text-[#123042] leading-[25.2px] max-[768px]:text-[14px] max-[768px]:leading-[135%]">
+                  <p className="font-Pop font-medium text-[16px] text-[#123042] leading-[25.2px] max-[768px]:text-[14px] max-[768px]:leading-[135%]">
                     {" "}
                     {faqs?.question}
                   </p>

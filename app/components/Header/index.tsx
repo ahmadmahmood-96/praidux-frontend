@@ -152,7 +152,7 @@ const Navbar: React.FC = () => {
 
                   <ListItem sx={{ paddingX: 0 }}>
                     <Button
-                      className="font-poppins"
+                      className="font-Pop"
                       variant="contained"
                       sx={{
                         borderRadius: "25px",

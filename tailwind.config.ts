@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+         Pop: ['var(--font-poppins)', 'sans-serif'],
         clash: ['ClashDisplay', 'sans-serif'],
         poppins: ['var(--font-poppins)', 'sans-serif'],
         roboto: ['var(--font-roboto)', 'sans-serif'],
