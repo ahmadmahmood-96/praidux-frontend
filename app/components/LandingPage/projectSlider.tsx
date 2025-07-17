@@ -29,11 +29,7 @@ const renderImageSet = (images: typeof line1Images, repeatCount = 3) =>
         alt={`image-${src}`}
         width={w}
         height={h}
-        className={`max-[900px]:h-[280px] ${
-          w > 200 ? "max-[900px]:w-[430px]" : ""
-        } max-[600px]:h-[220px] ${
-          w > 200 ? "max-[600px]:w-[380px]" : "max-[600px]:w-[120px]"
-        }`}
+       className={`project-slider-image ${w > 200 ? "wide" : "narrow"}`}
       />
     ))
   );

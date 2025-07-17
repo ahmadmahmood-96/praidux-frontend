@@ -72,7 +72,7 @@ export default function Contactus() {
   };
 
   return (
-    <div className="py-[51px] px-[100px] flex gap-[40px] bg-[#FFFFFF] max-[1150px]:px-[50px] max-[850px]:flex-col max-[768px]:px-[24px]">
+    <div className="py-[51px] px-[24px] flex gap-[40px] bg-[#FFFFFF]  xl:px-[100px] lg:px-[70px] md:px-[50px] definedcolDir">
       <div className="w-full flex flex-col gap-[16px]">
         <div className="flex flex-col gap-[8px]">
           <div className="flex gap-[8px] items-center">
@@ -81,13 +81,13 @@ export default function Contactus() {
               Contact us
             </p>
           </div>
-          <p className="font-clash font-semibold text-[38px] text-[#000000] leading-[48px] max-[951px]:text-[28px] max-[951px]:leading-[38px] max-[470px]:text-[24px] max-[470px]:leading-[34px]">
-            Reach out for free consultations
+          <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+             Reach out for free consultations
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-[24px]">
-          <div className="flex gap-[24px] max-[980px]:flex-col max-[980px]:gap-[15px]">
+          <div className="flex gap-[24px] definedNinecol">
             {/* Full Name */}
             <div className="flex flex-col gap-[6px] w-full ">
               <label
@@ -128,7 +128,7 @@ export default function Contactus() {
           </div>
 
           {/* Phone and File Upload */}
-          <div className="flex gap-[24px] max-[980px]:flex-col max-[980px]:gap-[15px]">
+          <div className="flex gap-[24px] definedNinecol">
             {/* Phone Input */}
             <div className="flex flex-col gap-[6px] w-full">
               <label className="font-inter font-medium text-[14px] text-[#344054]">
@@ -272,7 +272,7 @@ export default function Contactus() {
             <p className="font-inter font-medium text-[14px] text-[#344054] leading-[20px]">
               Services
             </p>
-            <div className="flex justify-between flex-wrap gap-[15px] max-[470px]:flex-col">
+            <div className="flex justify-between flex-wrap gap-[15px] sm:flex-row flex-col">
               {serviceColumns.map((column, colIdx) => (
                 <div key={colIdx} className="flex flex-col gap-[16px]">
                   {column.map((service) => {
@@ -345,8 +345,8 @@ export default function Contactus() {
       </div>
 
       {/* Contact Info Right Column */}
-      <div className="max-w-[377px] flex flex-col gap-[40px] max-[850px]:max-w-full max-[850px]:gap-[20px] ">
-        <div className="w-full h-[543px] rounded-[12px] bg-[#FF5F1F] flex items-end max-[850px]:h-[300px]">
+      <div className="max-w-[377px] flex flex-col gap-[40px] contact-box ">
+        <div className="w-full md:h-[543px] rounded-[12px] bg-[#FF5F1F] flex items-end h-[300px]">
           <Image src="/contact/play.png" alt="play" width={180} height={120} className="mb-[-35px] ml-[-20px]" />
         </div>
         <div className="flex flex-col gap-[16px]">
@@ -363,7 +363,7 @@ export default function Contactus() {
                 width={24}
               />
             </div>
-            <p className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
+            <p className="font-Pop font-semibold sm:text-[16px] text-[14px] text-[#123042] leading-[20px] sm:leading-[25.2px]">
               umar@meetpraidux.com
             </p>
           </div>

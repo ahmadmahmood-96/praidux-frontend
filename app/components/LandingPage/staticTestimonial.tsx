@@ -2,7 +2,7 @@ import Image from "next/image";
 import StaticTestimonialCard from "../statictestCard";
 export default function StaticTestimonial() {
   return (
-    <div className="px-[100px] py-[51px] flex flex-col gap-[16px] max-[1150px]:px-[50px] max-[768px]:px-[24px]">
+    <div className="px-[24px] py-[51px] flex flex-col gap-[16px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
       <div className="flex flex-col gap-[8px]">
         <div className="flex gap-[8px] items-center">
           <Image src="/dot.svg" alt="dot" width={9} height={9} />
@@ -10,11 +10,11 @@ export default function StaticTestimonial() {
             Testimonials
           </p>
         </div>
-        <p className="font-clash font-semibold text-[38px] text-[#000000] leading-[48px]  max-[951px]:text-[28px] max-[951px]:leading-[38px] max-[470px]:text-[24px] max-[470px]:leading-[34px]">
-          Hear it from our clients
+         <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+           Hear it from our clients
         </p>
       </div>
-     <div className="columns-3 max-[850px]:columns-2 max-[600px]:columns-1 gap-[20px]">
+     <div className="lg:columns-3 sm:columns-2 :columns-1 gap-[20px]">
         <div style={{ breakInside: "avoid", marginBottom: "20px" }}>
           <StaticTestimonialCard
             title="Project Logo"

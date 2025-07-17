@@ -12,9 +12,9 @@ const Process = () => {
             that every app we build is not only functional but also
             future-ready.
           </p>
-          <div className="flex gap-[24px] max-[600px]:flex-col">
-            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px]  w-full max-[500]:max-w-[100%]"></div>
-             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
+          <div className="flex gap-[24px] sm:flex-row flex-col">
+            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages"></div>
+             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages "></div>
           </div>
         </div>
       ),
@@ -29,9 +29,9 @@ const Process = () => {
             that every app we build is not only functional but also
             future-ready.
           </p>
-          <div className="flex gap-[24px] max-[600px]:flex-col">
-            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px]  w-full max-[500]:max-w-[100%]"></div>
-             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
+          <div className="flex gap-[24px] sm:flex-row flex-col">
+            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages"></div>
+             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages "></div>
           </div>
         </div>
       ),
@@ -46,9 +46,9 @@ const Process = () => {
             that every app we build is not only functional but also
             future-ready.
           </p>
-          <div className="flex gap-[24px] max-[600px]:flex-col">
-            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-[500px]:h-[250px] max-[500px]:h-[250px] max-w-[364px]  w-full max-[500]:max-w-[100%]"></div>
-             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-[500px]:h-[250px] max-[500px]:h-[250px] max-w-[364px]  w-full max-[500]:max-w-[100%]"></div>
+          <div className="flex gap-[24px] sm:flex-row flex-col">
+            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages"></div>
+             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages "></div>
           </div>
         </div>
       ),
@@ -63,9 +63,9 @@ const Process = () => {
             that every app we build is not only functional but also
             future-ready.
           </p>
-          <div className="flex gap-[24px] max-[600px]:flex-col">
-            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
-             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px]  w-full max-[500]:max-w-[100%]"></div>
+           <div className="flex gap-[24px] sm:flex-row flex-col">
+            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages"></div>
+             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages "></div>
           </div>
         </div>
       ),
@@ -80,9 +80,9 @@ const Process = () => {
             that every app we build is not only functional but also
             future-ready.
           </p>
-          <div className="flex gap-[24px] max-[600px]:flex-col">
-            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
-             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px]  w-full max-[500]:max-w-[100%]"></div>
+          <div className="flex gap-[24px] sm:flex-row flex-col">
+            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages"></div>
+             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages "></div>
           </div>
         </div>
       ),
@@ -97,9 +97,9 @@ const Process = () => {
             that every app we build is not only functional but also
             future-ready.
           </p>
-          <div className="flex gap-[24px] max-[600px]:flex-col">
-            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
-             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
+           <div className="flex gap-[24px] sm:flex-row flex-col">
+            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages"></div>
+             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages "></div>
           </div>
         </div>
       ),
@@ -114,16 +114,16 @@ const Process = () => {
             that every app we build is not only functional but also
             future-ready.
           </p>
-          <div className="flex gap-[24px] max-[600px]:flex-col">
-            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
-             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px] max-[500px]:h-[250px] w-full max-[500]:max-w-[100%]"></div>
+          <div className="flex gap-[24px] sm:flex-row flex-col">
+            <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages"></div>
+             <div className="bg-[#FF5F1F] rounded-[10px] h-[295px] max-w-[364px]  w-full timeLineimages "></div>
           </div>
         </div>
       ),
     },
   ];
   return (
-    <div className="px-[100px] py-[48px] flex flex-col gap-[28px] bg-[#FFFFFF] max-[1277px]:px-[70px] max-[1177px]:px-[50px] max-[768px]:px-[24px]">
+    <div className="px-[24px] py-[48px] flex flex-col gap-[28px] bg-[#FFFFFF] xl:px-[100px] lg:px-[70px] md:px-[50px]">
       <div className="flex flex-col gap-[8px]">
         <div className="flex gap-[8px] items-center">
           <Image src="/dot.svg" alt="dot" width={9} height={9} />
@@ -131,8 +131,8 @@ const Process = () => {
             Process
           </p>
         </div>
-        <p className="font-clash font-semibold text-[38px] text-[#000000] leading-[48px]  max-[951px]:text-[28px] max-[951px]:leading-[38px] max-[470px]:text-[24px] max-[470px]:leading-[34px]">
-          How we elevate the ideas to greater userbase?
+        <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+           How we elevate the ideas to greater userbase?
         </p>
       </div>
       <div className="relative w-full overflow-clip">
