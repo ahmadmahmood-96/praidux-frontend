@@ -45,7 +45,7 @@ export default function ManagementValue() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="py-[16px] flex items-center gap-[48px] max-[1100px]:gap-[20px]  max-[500px]:flex-col max-[500px]:items-start"
+              className="py-[16px] flex items-center gap-[48px] w-fit max-[1100px]:gap-[20px]  max-[500px]:flex-col max-[500px]:items-start"
               style={{ borderBottom: "1px solid #0000001A" }}
             >
               <div className="flex items-center gap-[48px] max-[1100px]:gap-[20px]" >
