@@ -17,6 +17,9 @@ const config: Config = {
         lato: ['var(--font-lato)', 'Lato', 'sans-serif'],
          caveat: ['var(--font-caveat)'],
       },
+      screens: {
+        xs: '400px', // custom breakpoint for 400px
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

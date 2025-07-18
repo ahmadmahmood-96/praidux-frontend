@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div className="pt-[35px] px-[100px] pb-[16.8px] flex flex-col gap-[16px] items-center max-[1150px]:px-[50px] max-[768px]:px-[24px]">
+    <div className="pt-[35px] px-[24px] pb-[16.8px] flex flex-col gap-[16px] items-center lg:px-[100px] md:px-[50px]">
       <div className="flex justify-center items-center">
         <div className="z-30 mr-[-10px]">
           <Image
@@ -32,22 +32,23 @@ export default function Hero() {
           />
         </div>
       </div>
-      <p className="font-clash font-semibold text-[54px] text-[#000000] leading-[64px] text-center max-[951px]:text-[44px] max-[951px]:leading-[54px] max-[630px]:text-[38px] max-[630px]:leading-[48px] max-[525px]:text-[32px] max-[525px]:leading-[42px] max-[340px]:leading-[38px]  max-[340px]:text-[28px]">
+      <p className="font-clash font-semibold text-[32px] leading-[42px] lg:text-[54px] text-[#000000] lg:leading-[64px] text-center md:text-[44px] md:leading-[54px] hero-font">
         Your Ultimate Software <br /> Solutions Partner
       </p>
       <div className="flex flex-col gap-[18px] items-center">
-        <p className="font-roboto text-center font-normal text-[18px] text-[#000000] leading-[100%] max-[630px]:text-[16px] max-[525px]:text-[14px] max-[420px]:text-[12px]">
-         We&apos;re a design &amp; development partner for startup founders and online brands.
+        <p className="font-roboto text-center font-normal text-[14px] text-[#000000] leading-[100%] sm:text-[16px] md:text-[18px] ">
+          We&apos;re a design &amp; development partner for startup founders and
+          online brands.
         </p>
         <div className="flex gap-[24px] w-full justify-center items-center">
-          <button className="bg-[#FF5F1F] rounded-[40px] px-[21px] py-[12px] cursor-pointer border-none font-Pop font-medium  text-[16px] leading-[100%] text-[#FFFFFF] max-[525px]:text-[14px] max-[525px]:px-[15px] max-[525px]:py-[10px] max-[420px]:text-[12px]">
+          <button className="bg-[#FF5F1F] rounded-[40px] sm:px-[21px] sm:py-[12px] cursor-pointer border-none font-Pop font-medium  sm:text-[16px] leading-[100%] text-[#FFFFFF] text-[14px] px-[15px] py-[10px]">
             Contact Us
           </button>
-          <p className="font-roboto font-normal text-[18px] text-[#000000] leading-[100%] max-[630px]:text-[16px] max-[525px]:text-[14px] max-[420px]:text-[12px]">
+          <p className="font-roboto font-normal sm:text-[18px] text-[#000000] leading-[100%] text-[14px]">
             What we Do?
           </p>
         </div>
-        <p className="font-caveat font-normal text-[26px] leading-[100%] text-[#000000] max-[630px]:text-[22px] max-[525px]:text-[18px] max-[420px]:text-[16px] text-center">
+        <p className="font-caveat font-normal md:text-[26px] leading-[100%] text-[#000000] sm:text-[22px] text-[16px] text-center">
           We have developed 40+ AI-based cross-platform ideas{" "}
         </p>
       </div>

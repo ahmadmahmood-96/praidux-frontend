@@ -34,7 +34,7 @@ export default function StaticTestimonialCard({
   </div>
 )}
 
-      <p className="font-roboto font-normal text-[16px] text-[#000000] leading-[24px] max-[500px]:text-[14px]">
+      <p className="font-roboto font-normal sm:text-[16px] text-[#000000] leading-[24px] text-[14px]">
         {description}
       </p>
 
@@ -44,10 +44,10 @@ export default function StaticTestimonialCard({
           style={{ backgroundColor: avatarColor }}
         ></div>
         <div>
-          <p className="font-clash font-semibold text-[16px] text-[#000000] leading-[100%] max-[500px]:text-[14px]">
+          <p className="font-clash font-semibold sm:text-[16px] text-[#000000] leading-[100%] text-[14px]">
             {name}
           </p>
-          <p className="font-roboto font-normal text-[14px] text-[#000000] leading-[100%] max-[500px]:text-[12px]">
+          <p className="font-roboto font-normal sm:text-[14px] text-[#000000] leading-[100%] text-[12px]">
             {role}
           </p>
         </div>
