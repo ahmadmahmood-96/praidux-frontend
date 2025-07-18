@@ -1,60 +1,71 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import ProjectCard from "../projectCard";
-
-const allProjects = [
-  {
-    projectType: "Mobile",
-    imageUrl: "/picture.png",
-    title: "Mobile App - Bill Walsh leadership lessons",
-    categories: [
-      { label: "UIUX", bgColor: "#EEF4FF", textColor: "#3538CD" },
-      {
-        label: "Software Development",
-        bgColor: "#ECFDF3",
-        textColor: "#027A48",
-      },
-      { label: "AI ML", bgColor: "#FDF2FA", textColor: "#C11574" },
-      { label: "Cross Platform", bgColor: "#F9F5FF", textColor: "#6941C6" },
-    ],
-  },
-  {
-    projectType: "Web",
-    imageUrl: "/picture.png",
-    title: "Web App - Bill Walsh leadership lessons",
-    categories: [
-      { label: "UIUX", bgColor: "#EEF4FF", textColor: "#3538CD" },
-      {
-        label: "Software Development",
-        bgColor: "#ECFDF3",
-        textColor: "#027A48",
-      },
-    ],
-  },
-  {
-    projectType: "AI & ML",
-    imageUrl: "/picture.png",
-    title: "AI ML Project - Bill Walsh leadership lessons",
-    categories: [{ label: "AI ML", bgColor: "#FDF2FA", textColor: "#C11574" }],
-  },
-  {
-    projectType: "AI Chatbot",
-    imageUrl: "/picture.png",
-    title: "Chatbot Project - Customer Support",
-    categories: [
-      { label: "Chatbot", bgColor: "#F9F5FF", textColor: "#6941C6" },
-    ],
-  },
-];
+import { getProjects } from "@/services/redux/middleware/getProjects";
+import { AppDispatch, useAppSelector } from "@/services/redux/store";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Project() {
+   const dispatch = useDispatch<AppDispatch>();
   const [selected, setSelected] = useState("All");
-  const filteredProjects =
-    selected === "All"
-      ? allProjects
-      : allProjects.filter((project) => project.projectType === selected);
-  const buttons = ["All", "Web", "Mobile", "AI & ML", "AI Chatbot"];
+  const buttons = ["All", "Web", "Mobile", "AI & ML", "IOS"];
+ useEffect(() => {
+  const fetchProject = async () => {
+    try {
+      const res = await dispatch<any>(getProjects());
+      // console.log("🚀 API Response:", res.payload); // ✅ Logs API data
+    } catch (err) {
+      console.error("❌ API Error:", err);
+    }
+  };
+
+  fetchProject();
+}, [dispatch]);
+
+  interface ProjectState {
+    result: any[];
+    [key: string]: any;
+  }
+
+  const projectState: ProjectState = useAppSelector((state) => {
+    const data = state.getProjects.getProjects;
+    if (typeof data === "object" && data !== null && "result" in data) {
+      return {
+        ...data,
+        result: Array.isArray(data.result) ? data.result : [],
+      };
+    }
+    return { result: [] };
+  });
+// useEffect(() => {
+//   console.log("🧠 Redux Store Data:", projectState); // ✅ Logs Redux state when it changes
+// }, [projectState]);
+
+const filteredProjects =
+  selected === "All"
+    ? projectState?.result || []
+    : (projectState?.result || []).filter((project: any) => {
+        const category = project.mainCategory?.toLowerCase();
+        if (selected === "Mobile") {
+          return category === "mobile" || category === "mobile app";
+        }
+        if (selected === "IOS") {
+          return category === "ios" || category === "iOS";
+        }
+        return category === selected.toLowerCase();
+      });
+const colorList = [
+  { bgColor: "#EEF4FF", textColor: "#3538CD" }, // Top 1 - Orange
+  { bgColor: "rgba(236, 253, 243, 1)", textColor: "#027A48" }, // Top 2 - Blue
+  { bgColor: "#FDF2FA", textColor: "#C11574" }, // Top 3 - Green
+  { bgColor: "#F9F5FF", textColor: "#6941C6" }, // Top 4 - Indigo
+
+];
+
+
+
+
   return (
     <div className="px-[24px] py-[51px] flex flex-col gap-[16px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
       <div className="flex flex-col gap-[24px] items-center">
@@ -92,13 +103,18 @@ export default function Project() {
       </div>
       <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
         {filteredProjects.map((project, idx) => (
-          <ProjectCard
-            key={idx}
-            projectType={project.projectType}
-            imageUrl={project.imageUrl}
-            title={project.title}
-            categories={project.categories}
-          />
+        <ProjectCard
+  key={idx}
+  projectType={project.mainCategory}
+  imageUrl={project.logo}
+  title={project.title}
+  categories={(project.categories || []).map((label: string, index: number) => ({
+      label,
+      bgColor: colorList[index % colorList.length]?.bgColor || "#EEE",
+      textColor: colorList[index % colorList.length]?.textColor || "#000",
+    }))}
+/>
+
         ))}
       </div>
     </div>

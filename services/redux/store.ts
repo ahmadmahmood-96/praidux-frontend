@@ -1,21 +1,21 @@
 // store/index.ts or store/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-
-// Import your reducers
 import themeReducer from "./features/theme-slice";
-// In the future, import other reducers here
-// import userReducer from "./features/user-slice";
-// import settingsReducer from "./features/settings-slice";
-
-const dummyReducer = (state = {}) => state;
-
+import getProjects from "./reducer/getProject";
+import getBlogs from "./reducer/getBlog";
+import getFaq from "./reducer/getFaq";
+import getVideoTestimonial from "./reducer/getVideoTestimonial";
+import getStaticTestimonial from "./reducer/getStaticTestimonial";
 export const createStore = () =>
   configureStore({
     reducer: {
-      dummy: dummyReducer, // Optional: useful placeholder
-      theme: themeReducer, // use meaningful key (e.g. theme)
-
+      theme: themeReducer,
+      getProjects: getProjects,
+      getBlogs: getBlogs,
+      getFaq: getFaq,
+      getVideoTestimonial: getVideoTestimonial,
+      getStaticTestimonial: getStaticTestimonial,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

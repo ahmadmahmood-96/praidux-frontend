@@ -83,16 +83,76 @@ export default function Contactus() {
     setSelectedFile(null);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await dispatch(AddContact(formData)).unwrap(); 
-      message.success("Form submitted successfully!");
-    } catch (error) {
-      console.error("Submission failed:", error);
-      message.success("Submission failed");
-    }
-  };
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const { fullName, email, phone, description, services, file } = formData;
+
+  if (!fullName.trim()) {
+    message.warning("Full name is required.");
+    return;
+  }
+
+  if (!email.trim()) {
+    message.warning("Email is required.");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    message.warning("Please enter a valid email address.");
+    return;
+  }
+
+  if (!phone.trim()) {
+    message.warning("Phone number is required.");
+    return;
+  }
+
+  const phoneRegex = /^[0-9]{7,15}$/;
+  if (!phoneRegex.test(phone)) {
+    message.warning("Please enter a valid phone number.");
+    return;
+  }
+
+  if (!description.trim()) {
+    message.warning("Description is required.");
+    return;
+  }
+
+  if (!services || services.length === 0) {
+    message.warning("Please select at least one service.");
+    return;
+  }
+
+  if (!file) {
+    message.warning("Please upload a file.");
+    return;
+  }
+
+  try {
+    await dispatch(AddContact(formData)).unwrap();
+    message.success("Form submitted successfully!");
+
+    // Reset form after success
+    setFormData({
+      fullName: "",
+      email: "",
+      phone: "",
+      countryCode: "+1",
+      countryName: "US",
+      description: "",
+      services: [],
+      file: null,
+    });
+    setCheckedServices([]);
+    setSelectedFile(null);
+  } catch (error) {
+    console.error("Submission failed:", error);
+    message.error("Submission failed. Please try again.");
+  }
+};
+
 
   return (
     <div className="py-[51px] px-[24px] flex gap-[40px] bg-[#FFFFFF]  xl:px-[100px] lg:px-[70px] md:px-[50px] definedcolDir">
@@ -126,7 +186,7 @@ export default function Contactus() {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Your name"
-                className="border border-[#D0D5DD] h-[48px] flex justify-center px-[16px] py-[12px] bg-[#FFFFFF] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] text-[#000000] h-[48px] flex justify-center px-[16px] py-[12px] bg-[#FFFFFF] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
 
@@ -145,7 +205,7 @@ export default function Contactus() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@company.com"
-                className="border border-[#D0D5DD] bg-[#FFFFFF] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] text-[#000000] bg-[#FFFFFF] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
           </div>
@@ -245,7 +305,7 @@ export default function Contactus() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-0 py-[0px] bg-[#FFFFFF] text-sm focus:outline-none"
+                  className="w-full px-0 py-[0px] text-[#000000] bg-[#FFFFFF] text-sm focus:outline-none"
                 />
               </div>
             </div>

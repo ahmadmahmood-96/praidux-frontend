@@ -1,13 +1,36 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
-
+import { useState,useEffect } from "react";
+import { getFaq } from "@/services/redux/middleware/getFaq";
+import { AppDispatch, useAppSelector } from "@/services/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+type Faq = {
+ question:string;
+ answer:string;
+};
 export default function Faq() {
   const [openIndex, setOpenIndex] = useState(null);
 
   const toggleFAQ = (index:any) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+   const dispatch = useDispatch<AppDispatch>();
+    useEffect(() => {
+      const fetchFaq = async () => {
+        try {
+          const res = await dispatch<any>(getFaq())as Faq[];
+          console.log("🚀 API Response for Faq:", res); // ✅ Logs API data
+        } catch (err) {
+          console.error("❌ API Error:", err);
+        }
+      };
+  
+      fetchFaq();
+    }, [dispatch]);
+    const FaqState = useAppSelector((state) => state.getFaq.getFaq);
+    useEffect(() => {
+    console.log("🧠 Redux FAQ Store Data:", FaqState); // ✅ Logs Redux state when it changes
+  }, [FaqState]);
   const faqs = [
     {
       question: "What services do you offer?",
@@ -59,8 +82,8 @@ export default function Faq() {
         </div>
       </div>
       <div className="flex flex-col gap-[12px] w-full">
-        {faqs?.length > 0
-          ? faqs?.slice(0, 4).map((faqs, index) => (
+        {FaqState?.length > 0
+          ? FaqState?.slice(0, 4).map((faqs: Faq, index: number) => (
               <div
                 className="bg-[#FFFFFF] rounded-[8px] flex sm:gap-[32px] justify-between p-[16px] gap-[15px]"
                 onClick={() => toggleFAQ(index)}

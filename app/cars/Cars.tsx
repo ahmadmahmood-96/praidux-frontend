@@ -1,17 +1,17 @@
 "use client";
 
-import { useAppSelector } from "@/redux/store";
+// import { useAppSelector } from "@/redux/store";
 
 export default function Cars() {
-  const theme = useAppSelector((state) => state.themeReducer.value.lightMode);
+  // const theme = useAppSelector((state) => state.themeReducer.value.lightMode);
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center px-6 transition-colors duration-500 ${
-        theme
-          ? "bg-gradient-to-br from-[#f0f8ff] via-[#e6f0f8] to-[#f0f8ff] text-gray-800"
-          : "bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white"
-      }`}
+      className={"min-h-screen flex items-center justify-center px-6 transition-colors duration-500 "
+        // theme
+        //   ? "bg-gradient-to-br from-[#f0f8ff] via-[#e6f0f8] to-[#f0f8ff] text-gray-800"
+        //   : "bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a] text-white"
+      }
     >
       <div className="text-center space-y-6">
         <h1 className="text-4xl md:text-5xl font-bold text-[#096AD8] animate-pulse">

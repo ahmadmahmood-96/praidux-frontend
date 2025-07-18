@@ -31,7 +31,6 @@ const Navbar: React.FC = () => {
     "Blogs",
     "Testimonials",
     "FAQs",
-    "Contact Us",
   ];
 
 //  const Links: string[] = [
@@ -46,10 +45,11 @@ const Navbar: React.FC = () => {
   "project",
   "process",
   "blogs",
-  "video-testimonial",
+  "static-testimonial",
   "faq",
-  "contact-us",
+  "contact-us", 
 ];
+
 
 const handleNav = async (index: number) => {
   const target = scrollTargets[index];
@@ -171,9 +171,7 @@ const handleNav = async (index: number) => {
                           background: "#FF5F1F",
                         },
                       }}
-                      // onClick={() => {
-                      //   router.push(isSignedIn ? "/dashboard" : "/login");
-                      // }}
+                       onClick={() => handleNav(scrollTargets.indexOf("contact-us"))}
                     >
                       Contact Us
                     </Button>
@@ -196,7 +194,8 @@ const handleNav = async (index: number) => {
               ))}
             </div>
             <div className="navbar-section login-right">
-              <button className="login-button cursor-pointer">Contact Us</button>
+              <button className="login-button cursor-pointer"
+               onClick={() => handleNav(scrollTargets.indexOf("contact-us"))}>Contact Us</button>
             </div>
           </>
         )}

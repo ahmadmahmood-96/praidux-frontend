@@ -19,6 +19,7 @@ export default function ProjectCard({
   categories = [],
   projectType,
 }: BlogCardProps) {
+
   return (
     <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
       {/* Image Placeholder or Image */}
@@ -28,7 +29,7 @@ export default function ProjectCard({
             src={imageUrl}
             alt="Blog Image"
             fill
-            className="object-cover rounded-[8px]"
+            className="rounded-[8px]"
           />
         )}
       </div>

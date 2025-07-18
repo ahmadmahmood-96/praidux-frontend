@@ -56,6 +56,9 @@ select:-webkit-autofill {
 .testimonial-slide {
   animation: slide-left 60s linear infinite;
 }
+.testimonial-slide:hover {
+  animation-play-state: paused;
+}
 @keyframes slide-right {
   0% {
     transform: translateX(-50%); /* Start at the duplicate set */

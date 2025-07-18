@@ -39,7 +39,7 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
   };
 
   return (
-    <div className="w-full sm:max-w-[729px] max-w-[650px] p-[16px] rounded-[32px] bg-[#fffaf8] flex gap-[10px] sm:gap-[16px]">
+    <div className=" w-[729px] p-[16px] rounded-[32px] bg-[#fffaf8] flex gap-[10px] sm:gap-[16px]">
      
         {/* Left - Video or Thumbnail */}
         <div className="w-full sm:max-w-[252px] max-w-[200px] sm:h-[321px] h-[280px] rounded-xl bg-[#ff5f1f] overflow-hidden ">

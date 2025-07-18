@@ -32,7 +32,7 @@ export default function BlogCard({
             src={imageUrl}
             alt="Blog Image"
             fill
-            className="object-cover rounded-[8px]"
+            className=" rounded-[8px]"
           />
         )}
       </div>
