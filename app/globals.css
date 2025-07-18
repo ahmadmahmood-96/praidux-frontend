@@ -51,7 +51,10 @@ select:-webkit-autofill {
 }
 
 .animate-slide {
-  animation: slide-left 30s linear infinite;
+  animation: slide-left 60s linear infinite;
+}
+.testimonial-slide {
+  animation: slide-left 60s linear infinite;
 }
 @keyframes slide-right {
   0% {
@@ -63,7 +66,7 @@ select:-webkit-autofill {
 }
 
 .animatedd-slide {
-  animation: slide-right 40s linear infinite;
+  animation: slide-right 80s linear infinite;
 }
 
 @font-face {

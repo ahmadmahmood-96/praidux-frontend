@@ -7,21 +7,17 @@ type Category = {
 };
 
 type BlogCardProps = {
-  author: string;
-  date: string;
   title: string;
-  description: string;
-  imageUrl?: string; // for future
+  imageUrl?: string;
   categories?: Category[];
+  projectType?: string;
 };
 
-export default function BlogCard({
-  author,
-  date,
+export default function ProjectCard({
   title,
-  description,
   imageUrl,
   categories = [],
+  projectType,
 }: BlogCardProps) {
   return (
     <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
@@ -41,19 +37,25 @@ export default function BlogCard({
       <div className="flex flex-col gap-[5px]">
         <div className="flex justify-between items-center">
           <p className="font-Pop font-normal sm:text-[16px] text-[#161C2D] sm:leading-[28px] text-[14px] leading-[26px]">
-            {author} • {date}
+            {projectType}
           </p>
-          <Image src="/arrow-up.svg" alt="arrow" className="cursor-pointer" width={24} height={24} />
+          <div className="flex gap-[10px] items-center cursor-pointer">
+            <p className="font-inter font-[medium] text-[14] text-[#123042] leading-[20px]">
+              View
+            </p>
+            <Image
+              src="/arrow-up.svg"
+              alt="arrow"
+              className="cursor-pointer"
+              width={24}
+              height={24}
+            />
+          </div>
         </div>
 
-        <p className="font-inter font-semibold sm:text-[24px] text-[#101828] sm:leading-[32px] text-[20px] leading-[28px]">
+        <p className="font-Pop font-semibold sm:text-[20px] text-[#161C2D] sm:leading-[36.4px] text-[18px] leading-[28px]">
           {title}
         </p>
-
-        <p className="font-inter font-normal sm:text-[16px] text-[#667085] leading-[24px] text-[14px]">
-          {description}
-        </p>
-
         {/* Category Chips */}
         {categories.length > 0 && (
           <div className="flex gap-2 flex-wrap">

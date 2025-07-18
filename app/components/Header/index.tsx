@@ -34,37 +34,39 @@ const Navbar: React.FC = () => {
     "Contact Us",
   ];
 
-  const Links: string[] = [
-    "/",
-    "/#how-it-works-section",
-    "/#features-section",
-    "/brokers",
-    "/blogs",
-  ];
+//  const Links: string[] = [
+//     "/",
+//     "/#how-it-works-section",
+//     "/#features-section",
+//     "/brokers",
+//     "/blogs",
+//   ];
 
-  const handleNav = async (index: number) => {
-    const scrollTargets = {
-      1: "how-it-works-section",
-      2: "features-section",
-      4: "blog-section",
-    } as Record<number, string>;
+ const scrollTargets: string[] = [
+  "project",
+  "process",
+  "blogs",
+  "video-testimonial",
+  "faq",
+  "contact-us",
+];
 
-    const target = scrollTargets[index];
+const handleNav = async (index: number) => {
+  const target = scrollTargets[index];
 
-    if (target) {
-      if (typeof window !== "undefined" && window.location.pathname === "/") {
-        // Scroll directly
-        document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        // Navigate then scroll via query
-        await router.push(`/?scrollTo=${target}`);
-      }
+  if (target) {
+    if (typeof window !== "undefined" && window.location.pathname === "/") {
+      // Already on homepage, scroll directly
+      document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      router.push(Links[index]);
+      // Navigate to homepage and pass scroll param
+      await router.push(`/?scrollTo=${target}`);
     }
+  }
 
-    setDrawerOpen(false);
-  };
+  setDrawerOpen(false);
+};
+
 
   return (
     <AppBar position="static" className="navbar">

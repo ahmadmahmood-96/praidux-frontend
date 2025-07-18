@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "@tabler/icons-react": "^3.34.0",
     "antd": "^5.19.3",
+    "axios": "^1.10.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.405.0",
     "mailgun-js": "^0.22.0",

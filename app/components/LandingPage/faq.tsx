@@ -53,7 +53,7 @@ export default function Faq() {
               Lets Discuss it now!
             </p>
           </div>
-          <button className="bg-[#FFFFFF] cursor-pointer whitespace-nowrap rounded-[40px] border-none font-lato font-bold text-[16px] h-fit leading-[100%] py-[12px] xl:px-[58px] px-[20px] ">
+          <button className="bg-[#FFFFFF] cursor-pointer whitespace-nowrap rounded-[40px] border-none font-lato font-bold text-[#000000] text-[16px] h-fit leading-[100%] py-[12px] xl:px-[58px] px-[20px] ">
             Book an appointment
           </button>
         </div>

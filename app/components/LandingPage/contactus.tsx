@@ -2,7 +2,10 @@
 import Image from "next/image";
 import { useState } from "react";
 import { MenuItem, Select, FormControl, InputLabel } from "@mui/material";
-
+import { useAppDispatch } from "@/services/redux/store";
+import { ContactPayload } from "@/services/redux/type";
+import { AddContact } from "@/services/redux/middleware/addcontact";
+import { message } from "antd";
 export default function Contactus() {
   const [formData, setFormData] = useState({
     fullName: "",
@@ -11,10 +14,13 @@ export default function Contactus() {
     countryCode: "+1",
     countryName: "US",
     description: "",
+    services: [] as string[],
+    file: null as File | null,
   });
 
   const [selectOpen, setSelectOpen] = useState(false);
   const [checkedServices, setCheckedServices] = useState<string[]>([]);
+  const dispatch = useAppDispatch();
 
   const countryOptions = [
     { name: "US", code: "+1" },
@@ -27,11 +33,18 @@ export default function Contactus() {
     ["AI Avatar", "NLP", "E-commerce", "Other"],
   ];
   const toggleService = (service: string) => {
-    setCheckedServices((prev) =>
-      prev.includes(service)
+    setCheckedServices((prev) => {
+      const newServices = prev.includes(service)
         ? prev.filter((s) => s !== service)
-        : [...prev, service]
-    );
+        : [...prev, service];
+
+      setFormData((prevData) => ({
+        ...prevData,
+        services: newServices,
+      }));
+
+      return newServices;
+    });
   };
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -44,8 +57,12 @@ export default function Contactus() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    setSelectedFile(file || null);
+    const file = e.target.files?.[0] || null;
+    setSelectedFile(file);
+    setFormData((prev) => ({
+      ...prev,
+      file,
+    }));
   };
 
   const handleCountryChange = (event: any) => {
@@ -65,10 +82,16 @@ export default function Contactus() {
   const handleRemoveFile = () => {
     setSelectedFile(null);
   };
- 
-  const handleSubmit = (e: any) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData, selectedFile);
+    try {
+      await dispatch(AddContact(formData)).unwrap(); 
+      message.success("Form submitted successfully!");
+    } catch (error) {
+      console.error("Submission failed:", error);
+      message.success("Submission failed");
+    }
   };
 
   return (
@@ -82,7 +105,7 @@ export default function Contactus() {
             </p>
           </div>
           <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
-             Reach out for free consultations
+            Reach out for free consultations
           </p>
         </div>
 
@@ -103,7 +126,7 @@ export default function Contactus() {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Your name"
-                className="border border-[#D0D5DD] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] h-[48px] flex justify-center px-[16px] py-[12px] bg-[#FFFFFF] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
 
@@ -122,7 +145,7 @@ export default function Contactus() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@company.com"
-                className="border border-[#D0D5DD] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] bg-[#FFFFFF] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
           </div>
@@ -222,7 +245,7 @@ export default function Contactus() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-0 py-[0px] text-sm focus:outline-none"
+                  className="w-full px-0 py-[0px] bg-[#FFFFFF] text-sm focus:outline-none"
                 />
               </div>
             </div>
@@ -330,7 +353,7 @@ export default function Contactus() {
               value={(formData as any).description || ""}
               onChange={handleChange}
               placeholder="Tell us a little about the project..."
-              className="border border-[#D0D5DD] px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] resize-none focus:outline-none focus:ring-0"
+              className="border border-[#D0D5DD] bg-[#FFFFFF] text-[#000000] px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] resize-none focus:outline-none focus:ring-0"
               style={{ height: "100px" }}
             />
           </div>
@@ -347,7 +370,13 @@ export default function Contactus() {
       {/* Contact Info Right Column */}
       <div className="max-w-[377px] flex flex-col gap-[40px] contact-box ">
         <div className="w-full md:h-[543px] rounded-[12px] bg-[#FF5F1F] flex items-end h-[300px]">
-          <Image src="/contact/play.png" alt="play" width={180} height={120} className="mb-[-35px] ml-[-20px]" />
+          <Image
+            src="/contact/play.png"
+            alt="play"
+            width={180}
+            height={120}
+            className="mb-[-35px] ml-[-20px]"
+          />
         </div>
         <div className="flex flex-col gap-[16px]">
           <p className="text-[#757575] text-[14.54px] leading-[150%]">
