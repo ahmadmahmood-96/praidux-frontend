@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 export default function PageNotFound() {
   return (
     <>
-      <Result
-        className="my-10 flex justify-center items-center flex-col"
+      <Result 
+        className="bg-[#FAFAFA] flex justify-center items-center flex-col bg-[]"
         status="404"
         title="404"
         subTitle="Sorry, the page you visited does not exist."

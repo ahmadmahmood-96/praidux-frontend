@@ -1,41 +1,33 @@
 "use client";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import StaticTestimonialCard from "../statictestCard";
-import { getStaticTestimonial } from "@/services/redux/middleware/getStaticTestimonial";
-import { AppDispatch, useAppSelector } from "@/services/redux/store";
-import { useDispatch, useSelector } from "react-redux";
+import client from "@/utils/client";
+import CircularProgress from "@mui/material/CircularProgress";
 export default function StaticTestimonial() {
-   const dispatch = useDispatch<AppDispatch>();
-    useEffect(() => {
-      const fetchStatic = async () => {
-        try {
-          const res = await dispatch<any>(getStaticTestimonial());
-           console.log("🚀 API Response for static:", res.payload); // ✅ Logs API data
-        } catch (err) {
-          console.error("❌ API Error:", err);
-        }
-      };
-  
-      fetchStatic();
-    }, [dispatch]);
-    interface StaticState {
-        result: any[];
-        [key: string]: any;
+  interface StaticState {
+    result: any[];
+    [key: string]: any;
+  }
+  const [staticTestimonials, setstaticTestimonials] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchStatic = async (): Promise<void> => {
+      try {
+        const { data } = await client.get(
+          "/staticTestimonial/view-listed-static-testimonials"
+        );
+        console.log("data", data?.result);
+        setstaticTestimonials(data?.result);
+      } catch (err) {
+        console.error("Failed to fetch testimonials", err);
+      } finally {
+        setLoading(false);
       }
-        const StaticState: StaticState = useAppSelector((state) => {
-        const data = state.getStaticTestimonial.getStaticTestimonial;
-        if (typeof data === "object" && data !== null && "result" in data) {
-          return {
-            ...data,
-            result: Array.isArray(data.result) ? data.result : [],
-          };
-        }
-        return { result: [] };
-      });
-        useEffect(() => {
-           console.log("🧠 Redux static Store Data:", StaticState); // ✅ Logs Redux state when it changes
-        }, [StaticState]);
+    };
+    fetchStatic();
+  }, []);
+
   return (
     <div className="px-[24px] py-[51px] flex flex-col gap-[16px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
       <div className="flex flex-col gap-[8px]">
@@ -45,25 +37,37 @@ export default function StaticTestimonial() {
             Testimonials
           </p>
         </div>
-         <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
-           Hear it from our clients
+        <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+          Hear it from our clients
         </p>
       </div>
-    <div className="lg:columns-3 sm:columns-2 columns-1 gap-[20px]">
-  {StaticState.result.map((testimonial, index) => (
-    <div key={testimonial._id} style={{ breakInside: "avoid", marginBottom: "20px" }}>
-      <StaticTestimonialCard
-        title={testimonial.projectName}
-        description={testimonial.description}
-        projectLogo={testimonial.projectLogo}
-        imageSrc={testimonial.clientImage || undefined}
-        name={testimonial.clientName}
-        role={testimonial.designation}
-      />
-    </div>
-  ))}
-</div>
-
+       {loading ? (
+        <div className="flex justify-center items-center h-[300px]">
+          <CircularProgress
+            style={{ color: "#FF5F1F" }}
+            size={60}
+            thickness={5}
+          />
+        </div>
+      ) : (
+      <div className="lg:columns-3 sm:columns-2 columns-1 gap-[20px]">
+        {staticTestimonials.map((testimonial, index) => (
+          <div
+            key={testimonial._id}
+            style={{ breakInside: "avoid", marginBottom: "20px" }}
+          >
+            <StaticTestimonialCard
+              title={testimonial.projectName}
+              description={testimonial.description}
+              projectLogo={testimonial.projectLogo}
+              imageSrc={testimonial.clientImage || undefined}
+              name={testimonial.clientName}
+              role={testimonial.designation}
+            />
+          </div>
+        ))}
+      </div>
+       )}
     </div>
   );
 }

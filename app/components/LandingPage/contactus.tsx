@@ -1,26 +1,22 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { MenuItem, Select, FormControl, InputLabel } from "@mui/material";
-import { useAppDispatch } from "@/services/redux/store";
-import { ContactPayload } from "@/services/redux/type";
-import { AddContact } from "@/services/redux/middleware/addcontact";
+import client from "@/utils/client";
 import { message } from "antd";
 export default function Contactus() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
-    countryCode: "+1",
+    // countryCode: "+1",
     countryName: "US",
     description: "",
     services: [] as string[],
     file: null as File | null,
   });
 
-  const [selectOpen, setSelectOpen] = useState(false);
   const [checkedServices, setCheckedServices] = useState<string[]>([]);
-  const dispatch = useAppDispatch();
+
 
   const countryOptions = [
     { name: "US", code: "+1" },
@@ -74,7 +70,7 @@ export default function Contactus() {
       setFormData((prev) => ({
         ...prev,
         countryName: selected.name,
-        countryCode: selected.code,
+        // countryCode: selected.code,
       }));
     }
   };
@@ -83,63 +79,48 @@ export default function Contactus() {
     setSelectedFile(null);
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
-  const { fullName, email, phone, description, services, file } = formData;
+  const { fullName, email, phone, description, services, file, countryName } = formData;
 
-  if (!fullName.trim()) {
-    message.warning("Full name is required.");
-    return;
-  }
-
-  if (!email.trim()) {
-    message.warning("Email is required.");
-    return;
-  }
-
+  // Validation
+  if (!fullName.trim()) return message.warning("Full name is required.");
+  if (!email.trim()) return message.warning("Email is required.");
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    message.warning("Please enter a valid email address.");
-    return;
-  }
-
-  if (!phone.trim()) {
-    message.warning("Phone number is required.");
-    return;
-  }
-
+  if (!emailRegex.test(email)) return message.warning("Please enter a valid email address.");
+  if (!phone.trim()) return message.warning("Phone number is required.");
   const phoneRegex = /^[0-9]{7,15}$/;
-  if (!phoneRegex.test(phone)) {
-    message.warning("Please enter a valid phone number.");
-    return;
-  }
-
-  if (!description.trim()) {
-    message.warning("Description is required.");
-    return;
-  }
-
-  if (!services || services.length === 0) {
-    message.warning("Please select at least one service.");
-    return;
-  }
-
-  if (!file) {
-    message.warning("Please upload a file.");
-    return;
-  }
+  if (!phoneRegex.test(phone)) return message.warning("Please enter a valid phone number.");
+  if (!description.trim()) return message.warning("Description is required.");
+  if (!services || services.length === 0) return message.warning("Please select at least one service.");
+  if (!file) return message.warning("Please upload a file.");
 
   try {
-    await dispatch(AddContact(formData)).unwrap();
+    const formPayload = new FormData();
+    formPayload.append("fullName", fullName);
+    formPayload.append("email", email);
+    formPayload.append("phone", phone);
+    // formPayload.append("countryCode", countryCode);
+    formPayload.append("countryName", countryName);
+    formPayload.append("description", description);
+    formPayload.append("services", JSON.stringify(services));
+    if (file) formPayload.append("attachment", file);
+
+    await client.post("/contact/add-contact", formPayload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
     message.success("Form submitted successfully!");
 
-    // Reset form after success
+    // Reset form
     setFormData({
       fullName: "",
       email: "",
       phone: "",
-      countryCode: "+1",
+      // countryCode: "+1",
       countryName: "US",
       description: "",
       services: [],
@@ -152,6 +133,7 @@ export default function Contactus() {
     message.error("Submission failed. Please try again.");
   }
 };
+
 
 
   return (
@@ -219,85 +201,6 @@ export default function Contactus() {
               </label>
 
               <div className="flex border h-[48px] flex justify-center border-[#D0D5DD] rounded-[8px] overflow-hidden items-center px-[16px] py-[12px] gap-2">
-                {/* Country Name Dropdown */}
-                <FormControl
-                  variant="standard"
-                  sx={{
-                    minWidth: "fit-content", // 👈 Fit content
-                    cursor: "pointer",
-                  }}
-                >
-                  <Select
-                    value={formData.countryName}
-                    onChange={handleCountryChange}
-                    onOpen={() => setSelectOpen(true)}
-                    onClose={() => setSelectOpen(false)}
-                    disableUnderline
-                    IconComponent={() => (
-                      <Image
-                        src="/contact/arrow.svg"
-                        alt="dropdown"
-                        width={20}
-                        height={20}
-                        style={{
-                          transition: "transform 0.3s ease",
-                          transform: selectOpen
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)",
-                        }}
-                      />
-                    )}
-                    sx={{
-                      fontSize: "14px",
-                      fontFamily: "Inter", // ✅ Font for selected item
-                      color: "#101828",
-                      lineHeight: "100%",
-                      width: "fit-content",
-                      padding: 0, // ✅ Fit content width
-                      pr: 0,
-                      "& fieldset": { border: "none" },
-                      "& .MuiSelect-select": {
-                        paddingRight: "0px !important", // ✅ override padding
-                        paddingLeft: "0px !important", // optional, if you want no horizontal padding
-                        minWidth: "0px",
-                        display: "flex",
-                        alignItems: "center",
-                      },
-                    }}
-                    MenuProps={{
-                      PaperProps: {
-                        sx: {
-                          fontFamily: "Inter", // ✅ Font for dropdown items
-                          fontSize: "14px",
-                          fontWeight: "400",
-                          color: "#101828",
-                        },
-                      },
-                    }}
-                  >
-                    {countryOptions.map((item) => (
-                      <MenuItem
-                        key={item.name}
-                        value={item.name}
-                        sx={{
-                          fontFamily: "Inter",
-                          fontWeight: "400",
-                          fontSize: "14px",
-                          color: "#101828",
-                          lineHeight: "100%",
-                        }}
-                      >
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                {/* Country Code (static) */}
-                <span className="text-sm text-gray-700 font-medium whitespace-nowrap">
-                  {formData.countryCode}
-                </span>
-
                 {/* Phone Input */}
                 <input
                   type="text"

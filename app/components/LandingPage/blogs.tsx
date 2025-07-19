@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import BlogCard from "../blogCard";
-import { useEffect } from "react";
-import { getBlogs } from "@/services/redux/middleware/getBlog";
-import { AppDispatch, useAppSelector } from "@/services/redux/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import striptags from "striptags";
+import client from "@/utils/client";
+import CircularProgress from "@mui/material/CircularProgress";
+
 type Blog = {
-  _id?: string;
+  _id: string;
   id: string;
   writerName: string;
   createdAt: string;
@@ -16,24 +16,30 @@ type Blog = {
   blogContent: string;
   categories?: string[];
 };
+type Category = {
+  label: string;
+  bgColor: string;
+  textColor: string;
+};
 
 export default function Blogs() {
-  const dispatch = useDispatch<AppDispatch>();
+  const [loading, setLoading] = useState(true);
+  const [blog, setBlog] = useState<Blog[]>([]);
+
   useEffect(() => {
-    const fetchBlog = async () => {
+    const Fetchblogs = async () => {
       try {
-        const res = await dispatch<any>(getBlogs());
-        // console.log("🚀 API Response for Blog:", res.payload); // ✅ Logs API data
+        const { data } = await client.get(`/blog/listed-blogs`);
+        console.log("blog data", data);
+        setBlog(data);
       } catch (err) {
-        console.error("❌ API Error:", err);
+        console.error("Error fetching initial projects:", err);
+      } finally {
+        setLoading(false);
       }
     };
-
-    fetchBlog();
-  }, [dispatch]);
-  const BlogState = useAppSelector(
-    (state) => state.getBlogs.getBlogs
-  ) as Blog[];
+    Fetchblogs();
+  }, []);
 
   return (
     <div className="px-[24px] py-[40px] flex flex-col gap-[32px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
@@ -53,10 +59,15 @@ export default function Blogs() {
           app we build is not only functional but also future-ready.
         </p>
       </div>
+      {loading ? (
+  <div className="w-full flex justify-center items-center py-10">
+    <CircularProgress style={{ color: "#FF5F1F" }} />
+  </div>
+) : (
       <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
         {/* // BlogState && BlogState.length > 0 ? ( */}
         {
-          BlogState.map((blog, index) => {
+          blog?.map((blog, index) => {
             // Dynamic category colors (rotating)
             const colorList = [
               { bgColor: "#EEF4FF", textColor: "#3538CD" },
@@ -66,7 +77,7 @@ export default function Blogs() {
             ];
 
             const formattedCategories =
-              blog.categories?.map((cat, idx) => ({
+              blog.categories?.map((cat: string, idx: number) => ({
                 label: cat,
                 ...colorList[idx % colorList.length],
               })) || [];
@@ -97,6 +108,7 @@ export default function Blogs() {
           // )
         }
       </div>
+      )}
       <div className="w-full items-center flex justify-center">
         <button className="border rounded-[40px] w-fit px-[16px] text-[#000000] font-poppins font-[normal] text-[16.4px] leading-[146%] cursor-pointer py-[12px] border-[#C6C6C6]">
           More

@@ -1,9 +1,8 @@
 "use client";
 import Image from "next/image";
 import { useState,useEffect } from "react";
-import { getFaq } from "@/services/redux/middleware/getFaq";
-import { AppDispatch, useAppSelector } from "@/services/redux/store";
-import { useDispatch, useSelector } from "react-redux";
+import client from "@/utils/client";
+import CircularProgress from "@mui/material/CircularProgress";
 type Faq = {
  question:string;
  answer:string;
@@ -14,23 +13,26 @@ export default function Faq() {
   const toggleFAQ = (index:any) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-   const dispatch = useDispatch<AppDispatch>();
+  
+  const [faq, setfaq] = useState<Faq[]>([]);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
-      const fetchFaq = async () => {
+      const fetchFaq = async (): Promise<void> => {
         try {
-          const res = await dispatch<any>(getFaq())as Faq[];
-          console.log("🚀 API Response for Faq:", res); // ✅ Logs API data
+          const { data } = await client.get(
+            "/faq/view-faqs"
+          );
+          console.log("data", data);
+          setfaq(data);
         } catch (err) {
-          console.error("❌ API Error:", err);
+          console.error("Failed to fetch faq", err);
+        } finally {
+          setLoading(false);
         }
       };
   
       fetchFaq();
-    }, [dispatch]);
-    const FaqState = useAppSelector((state) => state.getFaq.getFaq);
-    useEffect(() => {
-    console.log("🧠 Redux FAQ Store Data:", FaqState); // ✅ Logs Redux state when it changes
-  }, [FaqState]);
+    }, []);
   const faqs = [
     {
       question: "What services do you offer?",
@@ -81,36 +83,41 @@ export default function Faq() {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-[12px] w-full">
-        {FaqState?.length > 0
-          ? FaqState?.slice(0, 4).map((faqs: Faq, index: number) => (
-              <div
-                className="bg-[#FFFFFF] rounded-[8px] flex sm:gap-[32px] justify-between p-[16px] gap-[15px]"
-                onClick={() => toggleFAQ(index)}
-                key={index}
-              >
-                <div className="flex flex-col gap-[8px]">
-                  <p className="font-Pop font-medium md:text-[16px] text-[#123042] md:leading-[25.2px] text-[14px] leading-[135%]">
-                    {" "}
-                    {faqs?.question}
-                  </p>
-                  {openIndex === index && (
-                    <p className="font-Inter font-normal text-[14.54px] text-[#757575] leading-[150%] ">
-                      {faqs?.answer}
-                    </p>
-                  )}
-                </div>
-                <Image
-                  src={openIndex === index ? "/FaqCross.png" : "/FaqPlus.png"}
-                  alt=""
-                  height={40}
-                  width={38}
-                  className="h-fit cursor-pointer"
-                />
-              </div>
-            ))
-          : ""}
-      </div>
+     <div className="flex flex-col gap-[12px] w-full">
+      {loading ? (
+        <div className="flex justify-center items-center h-[200px] w-full">
+          <CircularProgress style={{ color: "#FF5F1F" }} size={50} thickness={5} />
+        </div>
+      ) : faq?.length > 0 ? (
+        faq.map((faqs: Faq, index: number) => (
+          <div
+            className="bg-[#FFFFFF] rounded-[8px] flex sm:gap-[32px] justify-between p-[16px] gap-[15px]"
+            onClick={() => toggleFAQ(index)}
+            key={index}
+          >
+            <div className="flex flex-col gap-[8px]">
+              <p className="font-Pop font-medium md:text-[16px] text-[#123042] md:leading-[25.2px] text-[14px] leading-[135%]">
+                {faqs.question}
+              </p>
+              {openIndex === index && (
+                <p className="font-Inter font-normal text-[14.54px] text-[#757575] leading-[150%]">
+                  {faqs.answer}
+                </p>
+              )}
+            </div>
+            <Image
+              src={openIndex === index ? "/FaqCross.png" : "/FaqPlus.png"}
+              alt=""
+              height={40}
+              width={38}
+              className="h-fit cursor-pointer"
+            />
+          </div>
+        ))
+      ) : (
+        <p className="text-gray-500 text-center">No FAQs found.</p>
+      )}
+    </div>
     </div>
   );
 }

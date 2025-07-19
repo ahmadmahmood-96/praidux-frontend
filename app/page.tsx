@@ -1,16 +1,18 @@
 import LandingPage from "./components/LandingPage";
 import { Metadata } from "next";
-
+import { Suspense } from "react";
 export const metadata: Metadata = {
-  title: "Hikar",
+  title: "Praidux",
   description:
-    "Hikar Trading Company Ltd. is a Japan-based exporter dealing in all types of cars and auto parts, delivering quality vehicles and components to clients worldwide.",
+    "Praidux is a Pakistan-based global tech company providing top-tier web, mobile, iOS, and full-stack development services. We specialize in SEO-optimized, scalable digital solutions tailored for clients worldwide.",
 };
 
 export default function Home() {
   return (
-    <main>
-      <LandingPage />
-    </main>
+    <Suspense fallback={<div>Loading...</div>}>
+      <main>
+        <LandingPage />
+      </main>
+    </Suspense>
   );
 }

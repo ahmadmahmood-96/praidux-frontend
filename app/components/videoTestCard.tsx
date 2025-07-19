@@ -89,11 +89,12 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
               {stars > 0 && (
                 <div className="flex items-center gap-1.5">
                   {Array.from({ length: stars }, (_, i) => (
-                    <img
+                    <Image
                       key={i}
                       src="/testimonial/star.svg"
                       alt="star"
-                      className="w-4 h-4"
+                      width={17}
+                      height={16}
                     />
                   ))}
                 </div>
@@ -116,7 +117,12 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white"
               >
-                <img src="/testimonial/language.svg" alt="Web" />
+                <Image
+                  src="/testimonial/language.svg"
+                  alt="Web"
+                  width={20}
+                  height={20}
+                />
                 <p className="sm:text-[14px] text-[12px] font-lato font-bold text-black">
                   Web
                 </p>
@@ -130,7 +136,12 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white"
               >
-                <img src="/testimonial/apple.svg" alt="iOS" />
+                <Image
+                  src="/testimonial/apple.svg"
+                  alt="iOS"
+                  width={20}
+                  height={20}
+                />
                 <p className="sm:text-[14px] text-[12px] font-lato font-bold text-black">
                   iOS
                 </p>
@@ -144,7 +155,12 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white"
               >
-                <img src="/testimonial/Android.svg" alt="Android" />
+                <Image
+                  src="/testimonial/Android.svg"
+                  alt="Android"
+                  width={20}
+                  height={20}
+                />
                 <p className="sm:text-[14px] text-[12px] font-lato font-bold text-black">
                   Android
                 </p>

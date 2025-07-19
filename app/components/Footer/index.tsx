@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
-import footerLinks from "@/app/links";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 export default function Footer() {
     const router = useRouter();
