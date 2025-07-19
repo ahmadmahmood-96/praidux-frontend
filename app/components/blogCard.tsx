@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 type Category = {
   label: string;
   bgColor: string;
@@ -8,6 +8,7 @@ type Category = {
 
 type BlogCardProps = {
   author: string;
+  id:string;
   date: string;
   title: string;
   description: string;
@@ -17,12 +18,18 @@ type BlogCardProps = {
 
 export default function BlogCard({
   author,
+  id,
   date,
   title,
   description,
   imageUrl,
   categories = [],
 }: BlogCardProps) {
+   const router = useRouter(); // ✅ hook
+
+  const handleNavigation = () => {
+    router.push(`/blog/${id}`); // ✅ navigate to /blog/[id]
+  };
   return (
     <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
       {/* Image Placeholder or Image */}
@@ -43,7 +50,7 @@ export default function BlogCard({
           <p className="font-Pop font-normal sm:text-[16px] text-[#161C2D] sm:leading-[28px] text-[14px] leading-[26px]">
             {author} • {date}
           </p>
-          <Image src="/arrow-up.svg" alt="arrow" className="cursor-pointer" width={24} height={24} />
+          <Image src="/arrow-up.svg" alt="arrow" className="cursor-pointer" width={24} height={24}  onClick={handleNavigation}/>
         </div>
 
         <p className="font-inter font-semibold sm:text-[24px] text-[#101828] sm:leading-[32px] text-[20px] leading-[28px]">

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import striptags from "striptags";
 type Blog = {
   _id?: string;
+  id: string;
   writerName: string;
   createdAt: string;
   blogImageUrl?: string;
@@ -34,9 +35,6 @@ export default function Blogs() {
     (state) => state.getBlogs.getBlogs
   ) as Blog[];
 
-  // useEffect(() => {
-  //   console.log("🧠 Redux Blog Store Data:", BlogState); // ✅ Logs Redux state when it changes
-  // }, [BlogState]);
   return (
     <div className="px-[24px] py-[40px] flex flex-col gap-[32px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
       <div className="flex flex-col gap-[8px] xl:px-[100px] px-[0]">
@@ -81,6 +79,7 @@ export default function Blogs() {
               <BlogCard
                 key={blog._id || index}
                 author={blog.writerName}
+                id={blog._id}
                 date={new Date(blog.createdAt).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "short",
