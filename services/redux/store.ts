@@ -7,6 +7,7 @@ import getBlogs from "./reducer/getBlog";
 import getFaq from "./reducer/getFaq";
 import getVideoTestimonial from "./reducer/getVideoTestimonial";
 import getStaticTestimonial from "./reducer/getStaticTestimonial";
+
 export const createStore = () =>
   configureStore({
     reducer: {

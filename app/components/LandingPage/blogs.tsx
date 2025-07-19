@@ -30,7 +30,9 @@ export default function Blogs() {
 
     fetchBlog();
   }, [dispatch]);
-  const BlogState = useAppSelector((state) => state.getBlogs.getBlogs) as Blog[];
+  const BlogState = useAppSelector(
+    (state) => state.getBlogs.getBlogs
+  ) as Blog[];
 
   // useEffect(() => {
   //   console.log("🧠 Redux Blog Store Data:", BlogState); // ✅ Logs Redux state when it changes
@@ -54,9 +56,9 @@ export default function Blogs() {
         </p>
       </div>
       <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
-        
         {/* // BlogState && BlogState.length > 0 ? ( */}
-          {BlogState.map((blog, index) => {
+        {
+          BlogState.map((blog, index) => {
             // Dynamic category colors (rotating)
             const colorList = [
               { bgColor: "#EEF4FF", textColor: "#3538CD" },
@@ -91,10 +93,15 @@ export default function Blogs() {
               />
             );
           })
-        // ) : (
-        //   <p>No blogs found.</p>
-        // )
+          // ) : (
+          //   <p>No blogs found.</p>
+          // )
         }
+      </div>
+      <div className="w-full items-center flex justify-center">
+        <button className="border rounded-[40px] w-fit px-[16px] text-[#000000] font-poppins font-[normal] text-[16.4px] leading-[146%] cursor-pointer py-[12px] border-[#C6C6C6]">
+          More
+        </button>
       </div>
     </div>
   );

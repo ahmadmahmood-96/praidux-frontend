@@ -8,7 +8,7 @@ import SuvImage from "@/public/SUV.webp";
 import TruckImage from "@/public/Truck.webp";
 import HatchbackImage from "@/public/Hatchback.webp";
 import MinivanImage from "@/public/Minivan.webp";
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector } from "@/services/redux/store";
 
 const bodyStyles = [
   { type: "Sedan", image: SedanImage },
@@ -20,7 +20,7 @@ const bodyStyles = [
 ];
 
 const BodyStyleSection = () => {
-  const theme = useAppSelector((state) => state.themeReducer.value.lightMode);
+  const theme = useAppSelector((state) => state.theme.value.lightMode);
 
   return (
     <div className="px-6 py-8">

@@ -1,11 +1,11 @@
 "use client";
 
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector } from "@/services/redux/store";
 import { message } from "antd";
 import { useState } from "react";
 
 export default function ContactPage() {
-  const theme = useAppSelector((state) => state.themeReducer.value.lightMode);
+  const theme = useAppSelector((state) => state.theme.value.lightMode);
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleChange = (

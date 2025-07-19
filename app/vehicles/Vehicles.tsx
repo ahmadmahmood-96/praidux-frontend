@@ -1,9 +1,9 @@
 "use client";
 
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector } from "@/services/redux/store";
 
 export default function Vehicles() {
-  const theme = useAppSelector((state) => state.themeReducer.value.lightMode);
+   const theme = useAppSelector((state) => state.theme.value.lightMode);
 
   return (
     <div

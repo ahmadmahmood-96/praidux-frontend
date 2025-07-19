@@ -1,4 +1,6 @@
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
+
 
 type Category = {
   label: string;
@@ -7,6 +9,7 @@ type Category = {
 };
 
 type BlogCardProps = {
+  id: string;
   title: string;
   imageUrl?: string;
   categories?: Category[];
@@ -14,11 +17,17 @@ type BlogCardProps = {
 };
 
 export default function ProjectCard({
+  id,
   title,
   imageUrl,
   categories = [],
   projectType,
 }: BlogCardProps) {
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    router.push(`/project/${id}`);
+  };
 
   return (
     <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
@@ -40,8 +49,11 @@ export default function ProjectCard({
           <p className="font-Pop font-normal sm:text-[16px] text-[#161C2D] sm:leading-[28px] text-[14px] leading-[26px]">
             {projectType}
           </p>
-          <div className="flex gap-[10px] items-center cursor-pointer">
-            <p className="font-inter font-[medium] text-[14] text-[#123042] leading-[20px]">
+          <div
+            className="flex gap-[10px] items-center cursor-pointer"
+            onClick={handleNavigate}
+          >
+            <p className="font-inter font-[medium] text-[14px] text-[#123042] leading-[20px]">
               View
             </p>
             <Image

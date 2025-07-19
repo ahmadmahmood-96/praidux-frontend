@@ -9,16 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-         Pop: ['var(--font-poppins)', 'sans-serif'],
-        clash: ['ClashDisplay', 'sans-serif'],
-        poppins: ['var(--font-poppins)', 'sans-serif'],
-        roboto: ['var(--font-roboto)', 'sans-serif'],
-        inter: ['var(--font-inter)', 'Inter', 'sans-serif'],
-        lato: ['var(--font-lato)', 'Lato', 'sans-serif'],
-         caveat: ['var(--font-caveat)'],
+        Pop: ["var(--font-poppins)", "sans-serif"],
+        clash: ["ClashDisplay", "sans-serif"],
+        satoshi: ["Satoshi", "sans-serif"],
+        helvetica:['Helvetica','sans-serif'],
+        poppins: ["var(--font-poppins)", "sans-serif"],
+        roboto: ["var(--font-roboto)", "sans-serif"],
+        inter: ["var(--font-inter)", "Inter", "sans-serif"],
+        lato: ["var(--font-lato)", "Lato", "sans-serif"],
+        caveat: ["var(--font-caveat)"],
       },
       screens: {
-        xs: '400px', // custom breakpoint for 400px
+        xs: "400px", // custom breakpoint for 400px
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

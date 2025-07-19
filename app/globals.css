@@ -79,6 +79,20 @@ select:-webkit-autofill {
   font-weight: 600;
   font-style: normal;
 }
+@font-face {
+  font-family: "Satoshi";
+  src: url("/font/Satoshi_Complete/Fonts/OTF/Satoshi-Medium.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("/public/font/Helvetica-Bold.ttf")
+    format("ttf");
+  font-weight: 700;
+  font-style: normal;
+}
 @media (max-width: 500px) {
   .timeLineimages{
     max-width: 100% !important;

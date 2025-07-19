@@ -102,9 +102,6 @@ export default function VideoTestimonial() {
 
  const testimonials = VideoState?.result || [];
 
-const repeatedTestimonials = testimonials;
-
-
   return (
     <div className="flex flex-col gap-[16px] py-[51px]">
       <div className="flex flex-col px-[24px]  xl:px-[100px] lg:px-[70px] md:px-[50px] items-center">
@@ -122,7 +119,7 @@ const repeatedTestimonials = testimonials;
       </div>
       <div className="w-full overflow-hidden">
         <div className="flex w-max gap-[16px] testimonial-slide group">
-  {repeatedTestimonials.map((testimonial, index) => (
+  {testimonials.map((testimonial, index) => (
     <VideoTestCard key={`${testimonial._id}-${index}`} testimonial={testimonial} />
   ))}
 </div>

@@ -53,7 +53,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${lato.variable} ${roboto.variable} ${inter.variable} ${caveat.variable} font-poppins`}
+        className={`${poppins.variable} ${lato.variable} ${roboto.variable} ${inter.variable} ${caveat.variable}bg-[#FAFAFA] font-poppins`}
       >
         <Provider store={store}>
           <Header />

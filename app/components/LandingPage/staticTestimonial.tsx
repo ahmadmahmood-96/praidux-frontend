@@ -55,6 +55,7 @@ export default function StaticTestimonial() {
       <StaticTestimonialCard
         title={testimonial.projectName}
         description={testimonial.description}
+        projectLogo={testimonial.projectLogo}
         imageSrc={testimonial.clientImage || undefined}
         name={testimonial.clientName}
         role={testimonial.designation}
