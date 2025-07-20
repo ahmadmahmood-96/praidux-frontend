@@ -36,7 +36,7 @@ const config: Config = {
         tealHover: "#34749b",
         brightCoral: "#E74C3C",
         lightGray: "#BDC3C7",
-        darkGray: "#7F8C8D",
+       
         blue: "#3498DB",
         lightBlue: "#EAF3FF",
         darkBlue: "#096AD8",

@@ -23,7 +23,9 @@ type ProjectType = {
 };
 const { id } = useParams();
   const router = useRouter();
-
+  const handleClick = () => {
+    router.push("/?scrollTo=contact-us");
+  };
   const [project, setProject] = useState<ProjectType | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -74,7 +76,7 @@ const { id } = useParams();
             </div>
             <p className="font-clash font-semibold text-[30px] sm:text-[40px] md:text-[46px] xl:text-[54px] leading-[40px] sm:leading-[50px] md:leading-[56px] xl:leading-[64px] text-[#000000]">
               {/* Project Name Goes Here */}
-              {project?.title}
+             {project?.title && project.title.charAt(0).toUpperCase() + project.title.slice(1)}
             </p>
             <p className="font-[satoshi] font-[medium] text-[16px] text-[#150A3D] leading-[20.6px] w-full lg:w-[686px]">
               {/* Convert AI-generated content into 100% human text with MyWords Ai.
@@ -83,7 +85,8 @@ const { id } = useParams();
               {project?.description}
             </p>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-[15px] sm:gap-[8px] flex-wrap">
-              <button className="bg-[#FF5F1F] rounded-[40px] py-[12px] px-[16px] font-Pop font-medium text-[16px] leading-[100%] text-[#FFFFFF]">
+              <button
+                onClick={handleClick} className="bg-[#FF5F1F] rounded-[40px] py-[12px] px-[16px] font-Pop font-medium text-[16px] leading-[100%] text-[#FFFFFF]">
                 Get Your Idea Live
               </button>
               <div className="flex items-center gap-[8px]">
@@ -154,7 +157,7 @@ const { id } = useParams();
                 Client
               </p>
               <p className="font-helvetica font-bold text-[#150A3D] text-[17.45px] leading-[110%]">
-                {project?.client}
+               {project?.client && project.client.charAt(0).toUpperCase() + project.client.slice(1)}
               </p>
             </div>
             <div className="flex gap-[8px]">

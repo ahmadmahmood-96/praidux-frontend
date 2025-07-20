@@ -17,14 +17,18 @@ export default function LandingPage() {
    const searchParams = useSearchParams();
   const scrollTo = searchParams.get("scrollTo");
 
-  useEffect(() => {
-    if (scrollTo) {
+ useEffect(() => {
+  if (scrollTo) {
+    // Delay to ensure DOM is ready
+    setTimeout(() => {
       const section = document.getElementById(scrollTo);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
       }
-    }
-  }, [scrollTo]);
+    }, 200); // 200ms delay works well
+  }
+}, [scrollTo]);
+
   return (
     <div className="bg-[#FAFAFA] flex flex-col gap-[8px]">
       <div className="bg-[#FAFAFA] flex flex-col gap-[8px]">

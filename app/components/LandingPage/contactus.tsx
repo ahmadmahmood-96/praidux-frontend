@@ -9,11 +9,11 @@ export default function Contactus() {
     email: "",
     phone: "",
     // countryCode: "+1",
-    countryName: "US",
     description: "",
     services: [] as string[],
     file: null as File | null,
   });
+const [loading, setLoading] = useState(false);
 
   const [checkedServices, setCheckedServices] = useState<string[]>([]);
 
@@ -61,48 +61,64 @@ export default function Contactus() {
     }));
   };
 
-  const handleCountryChange = (event: any) => {
-    const selected = countryOptions.find(
-      (item) => item.name === event.target.value
-    );
-
-    if (selected) {
-      setFormData((prev) => ({
-        ...prev,
-        countryName: selected.name,
-        // countryCode: selected.code,
-      }));
-    }
-  };
-
   const handleRemoveFile = () => {
     setSelectedFile(null);
   };
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
+ setLoading(true);
+  const { fullName, email, phone, description, services, file } = formData;
 
-  const { fullName, email, phone, description, services, file, countryName } = formData;
-
-  // Validation
-  if (!fullName.trim()) return message.warning("Full name is required.");
-  if (!email.trim()) return message.warning("Email is required.");
+   if (!fullName.trim()) {
+    message.warning("Full name is required.");
+    setLoading(false);
+    return;
+  }
+  if (!email.trim()) {
+    message.warning("Email is required.");
+    setLoading(false);
+    return;
+  }
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) return message.warning("Please enter a valid email address.");
-  if (!phone.trim()) return message.warning("Phone number is required.");
-  const phoneRegex = /^[0-9]{7,15}$/;
-  if (!phoneRegex.test(phone)) return message.warning("Please enter a valid phone number.");
-  if (!description.trim()) return message.warning("Description is required.");
-  if (!services || services.length === 0) return message.warning("Please select at least one service.");
-  if (!file) return message.warning("Please upload a file.");
-
+  if (!emailRegex.test(email)) {
+    message.warning("Please enter a valid email address.");
+    setLoading(false);
+    return;
+  }
+  if (!phone.trim()) {
+    message.warning("Phone number is required.");
+    setLoading(false);
+    return;
+  }
+  const phoneRegex = /^\+?[0-9]{7,15}$/;
+  if (!phoneRegex.test(phone)) {
+    message.warning("Please enter a valid phone number.");
+    setLoading(false);
+    return;
+  }
+  if (!description.trim()) {
+    message.warning("Description is required.");
+    setLoading(false);
+    return;
+  }
+  if (!services || services.length === 0) {
+    message.warning("Please select at least one service.");
+    setLoading(false);
+    return;
+  }
+  if (!file) {
+    message.warning("Please upload a file.");
+    setLoading(false);
+    return;
+  }
   try {
     const formPayload = new FormData();
     formPayload.append("fullName", fullName);
     formPayload.append("email", email);
     formPayload.append("phone", phone);
     // formPayload.append("countryCode", countryCode);
-    formPayload.append("countryName", countryName);
+    // formPayload.append("countryName", countryName);
     formPayload.append("description", description);
     formPayload.append("services", JSON.stringify(services));
     if (file) formPayload.append("attachment", file);
@@ -120,8 +136,6 @@ const handleSubmit = async (e: React.FormEvent) => {
       fullName: "",
       email: "",
       phone: "",
-      // countryCode: "+1",
-      countryName: "US",
       description: "",
       services: [],
       file: null,
@@ -131,6 +145,9 @@ const handleSubmit = async (e: React.FormEvent) => {
   } catch (error) {
     console.error("Submission failed:", error);
     message.error("Submission failed. Please try again.");
+  }
+   finally {
+    setLoading(false);
   }
 };
 
@@ -204,7 +221,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 {/* Phone Input */}
                 <input
                   type="text"
-                  placeholder="(555) 000-0000"
+                  placeholder="+1 (555) 000-0000"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -325,7 +342,14 @@ const handleSubmit = async (e: React.FormEvent) => {
             type="submit"
             className="bg-[#123042] text-white py-[12px] px-[24px] rounded-[40px] w-fit font-lato font-bold text-[16px] text-white leading-[100%]"
           >
-            Submit Request
+             {loading ? (
+                  <span className="dots-loader">
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                  </span>
+                ) : (
+           " Submit Request")}
           </button>
         </form>
       </div>

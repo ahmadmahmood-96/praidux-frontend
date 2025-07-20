@@ -1,6 +1,12 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function RevenueIdea() {
+  const router = useRouter(); // ✅ hook
+
+  const handleClick = () => {
+    router.push("/?scrollTo=contact-us");
+  };
   return (
      <div className="bg-[#FFFFFF] pt-[24px] md:pt-[51px] pb-[24px] md:pb-[40px] px-[24px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
         <div className="bg-[#FEF9F5] p-[24px] sm:p-[32px] flex flex-col gap-[32px] items-center rounded-[8px]">
@@ -19,7 +25,9 @@ export default function RevenueIdea() {
             Sell templates, make referrals, and bring in clients.
             Keep 100% of your earnings.
           </p>
-          <button className="bg-[#FF5F1F] py-[12px] px-[16px] rounded-[40px] border-none text-[#FFFFFF] font-Pop font-medium text-[16px] leading-[100%]">
+          <button 
+           onClick={handleClick}
+           className="bg-[#FF5F1F] py-[12px] px-[16px] rounded-[40px] border-none text-[#FFFFFF] font-Pop font-medium text-[16px] leading-[100%]">
             Contact Us Now
           </button>
         </div>
