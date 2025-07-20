@@ -38,8 +38,9 @@ export default function BlogCard({
           <Image
             src={imageUrl}
             alt="Blog Image"
-            fill
-            className=" rounded-[8px]"
+         width={450}
+         height={324}
+            className=" rounded-[8px] sm:h-[324px] w-full h-[280px]"
           />
         )}
       </div>

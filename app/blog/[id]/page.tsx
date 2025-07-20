@@ -19,7 +19,7 @@ export default function Blog() {
     const fetchBlog = async () => {
       try {
         const { data } = await client.get(`/blog/view-blog/${id}`);
-        console.log("Blog Data", data);
+        // console.log("Blog Data", data);
         setBlog(data.result);
         // console.log("Blog Data", blog)
       } catch (error) {
@@ -39,7 +39,7 @@ export default function Blog() {
       day: "numeric",
     });
   };
- if (loading) {
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
         <CircularProgress style={{ color: "#FF5F1F" }} size={60} />
@@ -61,10 +61,11 @@ export default function Blog() {
           </div>
           <Image
             src={blog?.blogImageUrl}
-            alt="Blog"
+           alt={blog.blogTitle || "Blog image"}
             width={1240}
+            loading="lazy"
             height={456}
-            className="w-full h-[456px]"
+            className="w-full lg:h-[456px] md:h-[400px] h-[350px]"
           />
           <p className="font-inter font-bold text-[26px] md:text-[32px] lg:text-[38px] xl:text-[45px] leading-[100%] text-[#2D3748]">
             {blog?.blogTitle}

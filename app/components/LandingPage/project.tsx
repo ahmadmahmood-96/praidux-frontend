@@ -19,6 +19,10 @@ export default function Project() {
   const [skip, setSkip] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+
+  const limit = 6; // initial load
+  const loadMoreLimit = 2; // per click load
 
   const buttons = ["All", "Web", "Mobile", "IOS"];
 
@@ -26,9 +30,10 @@ export default function Project() {
   useEffect(() => {
     const fetchInitialProjects = async () => {
       try {
-        const res = await client.get(`/project/public-projects?skip=0&limit=6`);
+        const res = await client.get(`/project/public-projects?skip=0&limit=${limit}`);
         setProjects(res.data);
-        setSkip(6); // Set next skip for load more
+        setSkip(res.data.length); // update skip based on returned count
+        setHasMore(res.data.length === limit); // hide load more if fewer than limit
       } catch (err) {
         console.error("Error fetching initial projects:", err);
       } finally {
@@ -38,33 +43,33 @@ export default function Project() {
     fetchInitialProjects();
   }, []);
 
-  // ✅ Load more (2 at a time)
-  // const fetchMoreProjects = async () => {
-  //   try {
-  //     const res = await client.get(
-  //       `/project/public-projects?skip=${skip}&limit=2`
-  //     );
-  //     const newProjects = res.data.result;
+  // ✅ Load more handler
+  const fetchMoreProjects = async () => {
+    setLoadingMore(true);
+    try {
+      const res = await client.get(`/project/public-projects?skip=${skip}&limit=${loadMoreLimit}`);
+      const newProjects: Project[] = res.data;
 
-  //     if (newProjects.length < 2) setHasMore(false); // no more to load
-  //     setProjects((prev) => [...prev, ...newProjects]);
-  //     setSkip((prev) => prev + 2);
-  //   } catch (err) {
-  //     console.error("Error loading more projects:", err);
-  //     // setError("Failed to load more.");
-  //   }
-  // };
+      if (newProjects.length < loadMoreLimit) {
+        setHasMore(false); // hide Load More button if no more data
+      }
+
+      setProjects(prev => [...prev, ...newProjects]);
+      setSkip(prev => prev + newProjects.length);
+    } catch (err) {
+      console.error("Error loading more projects:", err);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   // ✅ Filtering logic
   const filteredProjects = useMemo(() => {
     if (selected === "All") return projects;
     const selectedLower = selected.toLowerCase();
-    return projects.filter((project) => {
-      const category = project.mainCategory?.toLowerCase() || "";
-      if (selectedLower === "mobile") return category.includes("mobile");
-      if (selectedLower === "ios") return category.includes("ios");
-      return category.includes(selectedLower);
-    });
+    return projects.filter((project) =>
+      project.mainCategory?.toLowerCase().includes(selectedLower)
+    );
   }, [selected, projects]);
 
   const colorList = [
@@ -76,6 +81,7 @@ export default function Project() {
 
   return (
     <div className="px-[24px] py-[51px] flex flex-col gap-[16px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
+      {/* Header */}
       <div className="flex flex-col gap-[24px] items-center">
         <div className="flex flex-col items-center">
           <div className="flex gap-[8px] items-center">
@@ -110,14 +116,11 @@ export default function Project() {
         </div>
       </div>
 
+      {/* Project Grid */}
       <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
         {loading ? (
           <div className="col-span-full flex justify-center items-center py-8">
-            <CircularProgress
-              sx={{ color: "#FF5F1F" }}
-              size={50}
-              thickness={5}
-            />
+            <CircularProgress sx={{ color: "#FF5F1F" }} size={50} thickness={5} />
           </div>
         ) : (
           filteredProjects.map((project) => (
@@ -130,21 +133,22 @@ export default function Project() {
               categories={(project.categories || []).map((label, index) => ({
                 label,
                 bgColor: colorList[index % colorList.length]?.bgColor || "#EEE",
-                textColor:
-                  colorList[index % colorList.length]?.textColor || "#000",
+                textColor: colorList[index % colorList.length]?.textColor || "#000",
               }))}
             />
           ))
         )}
       </div>
 
-      {hasMore && (
+      {/* Load More Button */}
+      {hasMore && !loading && (
         <div className="w-full items-center flex justify-center mt-6">
           <button
-            // onClick={fetchMoreProjects}
+            onClick={fetchMoreProjects}
             className="border rounded-[40px] w-fit px-[16px] text-[#000000] font-poppins font-[normal] text-[16.4px] leading-[146%] cursor-pointer py-[12px] border-[#C6C6C6]"
+            disabled={loadingMore}
           >
-            Load More
+            {loadingMore ? "Loading..." : "Load More"}
           </button>
         </div>
       )}

@@ -28,7 +28,7 @@ export default function VideoTestimonial() {
         const { data } = await client.get(
           "/videoTestimonial/view-listed-video-testimonials"
         );
-        console.log("data", data?.result);
+        // console.log("data", data?.result);
         setTestimonials(data?.result);
       } catch (err) {
         console.error("Failed to fetch testimonials", err);

@@ -67,6 +67,7 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
               <video
                 src={videoUrl}
                 controls
+                 preload="metadata"
                 autoPlay
                 className="w-full h-full object-cover rounded-xl"
               />
@@ -115,17 +116,17 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
                 href={websiteLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white"
-              >
+                className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white sm:text-[14px] text-[12px] font-lato font-bold text-black"
+                >
                 <Image
                   src="/testimonial/language.svg"
                   alt="Web"
                   width={20}
                   height={20}
                 />
-                <p className="sm:text-[14px] text-[12px] font-lato font-bold text-black">
+                
                   Web
-                </p>
+               
               </a>
             )}
 
@@ -134,17 +135,17 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
                 href={iosLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white"
+                className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white sm:text-[14px] text-[12px] font-lato font-bold text-black"
               >
                 <Image
                   src="/testimonial/apple.svg"
-                  alt="iOS"
+                  alt="apple"
                   width={20}
                   height={20}
                 />
-                <p className="sm:text-[14px] text-[12px] font-lato font-bold text-black">
+              
                   iOS
-                </p>
+                
               </a>
             )}
 
@@ -153,17 +154,15 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
                 href={androidLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white"
-              >
+                className="flex items-center gap-2 border border-black/10 rounded-full px-3 py-2 bg-white sm:text-[14px] text-[12px] font-lato font-bold text-black"
+                >
                 <Image
                   src="/testimonial/Android.svg"
                   alt="Android"
                   width={20}
                   height={20}
                 />
-                <p className="sm:text-[14px] text-[12px] font-lato font-bold text-black">
-                  Android
-                </p>
+               
               </a>
             )}
           </div>

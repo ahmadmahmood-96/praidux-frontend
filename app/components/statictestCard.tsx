@@ -30,8 +30,9 @@ export default function StaticTestimonialCard({
           <Image
             src={projectLogo}
             alt={title}
-            fill
-            className=" rounded-[8px] w-fit"
+            width={450}
+            height={239}
+            className=" rounded-[8px] h-[239px] w-full"
           />
         </div>
       )}
@@ -41,16 +42,11 @@ export default function StaticTestimonialCard({
       </p>
 
       <div className="flex gap-[16px] items-center">
-      {imageSrc && (
-  <div className="w-[36px] h-[36px] rounded-full relative overflow-hidden">
-    <Image
-      src={imageSrc}
-      alt={title}
-      fill
-    />
-  </div>
-)}
-
+        {imageSrc && (
+          <div className="w-[36px] h-[36px] rounded-full relative overflow-hidden">
+            <Image src={imageSrc} alt={title} height={36} width={36} />
+          </div>
+        )}
 
         <div>
           <p className="font-clash font-semibold sm:text-[16px] text-[#000000] leading-[100%] text-[14px]">

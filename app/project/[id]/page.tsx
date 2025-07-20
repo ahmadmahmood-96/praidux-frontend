@@ -36,7 +36,7 @@ const { id } = useParams();
     const fetchProject = async () => {
       try {
         const { data } = await client.get(`/project/view-project/${id}`);
-        console.log("project Data", data)
+        // console.log("project Data", data)
         setProject(data.result);
       } catch (error) {
         console.error("Failed to fetch project:", error);

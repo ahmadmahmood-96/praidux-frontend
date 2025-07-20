@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useState,useEffect } from "react";
 import client from "@/utils/client";
+
 import CircularProgress from "@mui/material/CircularProgress";
 type Faq = {
  question:string;
@@ -22,7 +23,7 @@ export default function Faq() {
           const { data } = await client.get(
             "/faq/view-faqs"
           );
-          console.log("data", data);
+          // console.log("data", data);
           setfaq(data);
         } catch (err) {
           console.error("Failed to fetch faq", err);
@@ -33,28 +34,7 @@ export default function Faq() {
   
       fetchFaq();
     }, []);
-  const faqs = [
-    {
-      question: "What services do you offer?",
-      answer:
-        "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. ",
-    },
-    {
-      question: "What services do you offer?",
-      answer:
-        "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. ",
-    },
-    {
-      question: "What services do you offer?",
-      answer:
-        "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. ",
-    },
-    {
-      question: "What services do you offer?",
-      answer:
-        "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. ",
-    },
-  ];
+  
   return (
     <div className="px-[24px] py-[51px] flex gap-[16px]  xl:px-[100px] lg:px-[70px] md:px-[50px] lg:flex-row flex-col">
       <div className="flex flex-col gap-[16px] lg:w-full md:w-[80%] w-full">

@@ -17,7 +17,7 @@ export default function StaticTestimonial() {
         const { data } = await client.get(
           "/staticTestimonial/view-listed-static-testimonials"
         );
-        console.log("data", data?.result);
+        // console.log("data", data?.result);
         setstaticTestimonials(data?.result);
       } catch (err) {
         console.error("Failed to fetch testimonials", err);
@@ -42,13 +42,9 @@ export default function StaticTestimonial() {
         </p>
       </div>
        {loading ? (
-        <div className="flex justify-center items-center h-[300px]">
-          <CircularProgress
-            style={{ color: "#FF5F1F" }}
-            size={60}
-            thickness={5}
-          />
-        </div>
+       <div className="w-full flex justify-center items-center py-10">
+                 <CircularProgress style={{ color: "#FF5F1F" }} />
+               </div>
       ) : (
       <div className="lg:columns-3 sm:columns-2 columns-1 gap-[20px]">
         {staticTestimonials.map((testimonial, index) => (

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import client from "@/utils/client";
 import { message } from "antd";
 export default function Contactus() {
@@ -16,6 +16,7 @@ export default function Contactus() {
 const [loading, setLoading] = useState(false);
 
   const [checkedServices, setCheckedServices] = useState<string[]>([]);
+const fileInputRef = useRef<HTMLInputElement | null>(null);
 
 
   const countryOptions = [
@@ -61,9 +62,15 @@ const [loading, setLoading] = useState(false);
     }));
   };
 
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
-  };
+ const handleRemoveFile = () => {
+  setSelectedFile(null);
+  setFormData((prev) => ({ ...prev, file: null }));
+
+  if (fileInputRef.current) {
+    fileInputRef.current.value = "";
+  }
+};
+
 
 const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
@@ -142,6 +149,9 @@ const handleSubmit = async (e: React.FormEvent) => {
     });
     setCheckedServices([]);
     setSelectedFile(null);
+    if (fileInputRef.current) {
+  fileInputRef.current.value = "";
+}
   } catch (error) {
     console.error("Submission failed:", error);
     message.error("Submission failed. Please try again.");
@@ -239,6 +249,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <input
                     type="file"
                     onChange={handleFileChange}
+                      ref={fileInputRef}
                     className="hidden"
                   />
                   <div className="bg-[#FF5F1F] text-white px-[16px] py-[10px] rounded-[8px] flex items-center gap-[8px]">
