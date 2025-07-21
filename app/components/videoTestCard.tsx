@@ -103,7 +103,7 @@ const VideoTestCard = ({ testimonial }: VideoTestCardProps) => {
             </div>
           </div>
 
-          <p className="font-Pop font-normal sm:text-[18px] text-[14px] text-[#757575] leading-[20px] sm:leading-[25.2px]">
+          <p className="font-Pop font-normal sm:text-[18px] text-[14px] text-[#757575] leading-[20px] sm:leading-[25.2px] break-words whitespace-normal">
             &quot;{description}&quot;
           </p>
         </div>

@@ -100,11 +100,11 @@ const handleBookAppointment = async () => {
               key={index}
             >
               <div className="flex flex-col gap-[8px]">
-                <p className="font-Pop font-medium md:text-[16px] text-[#123042] md:leading-[25.2px] text-[14px] leading-[135%]">
+                <p className="font-Pop font-medium md:text-[16px] text-[#123042] md:leading-[25.2px] text-[14px] leading-[135%] break-words whitespace-normal">
                   {faqs.question}
                 </p>
                 {openIndex === index && (
-                  <p className="font-Inter font-normal text-[14.54px] text-[#757575] leading-[150%]">
+                  <p className="font-Inter font-normal text-[14.54px] text-[#757575] leading-[150%] break-words whitespace-normal">
                     {faqs.answer}
                   </p>
                 )}

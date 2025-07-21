@@ -195,7 +195,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Your name"
-                className="border border-[#D0D5DD] text-[#000000] h-[48px] flex justify-center px-[16px] py-[12px] bg-[#FFFFFF] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] text-[#000000] h-[48px] flex justify-center px-[16px] py-[12px] bg-[#FFFFFF] font-inter font-normal text-sm rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
 
@@ -214,7 +214,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@company.com"
-                className="border border-[#D0D5DD] text-[#000000] bg-[#FFFFFF] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] text-[#000000] bg-[#FFFFFF] h-[48px] flex justify-center px-[16px] py-[12px] font-inter font-normal text-sm rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
           </div>
@@ -235,7 +235,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-0 py-[0px] text-[#000000] bg-[#FFFFFF] text-sm focus:outline-none"
+                  className="w-full px-0 py-[0px] text-[#000000] bg-[#FFFFFF] font-inter font-normal text-sm focus:outline-none"
                 />
               </div>
             </div>
@@ -250,7 +250,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     type="file"
                     onChange={handleFileChange}
                       ref={fileInputRef}
-                    className="hidden"
+                    className="hidden font-inter font-medium text-[12px] leading-[16px]"
                   />
                   <div className="bg-[#FF5F1F] text-white px-[16px] py-[10px] rounded-[8px] flex items-center gap-[8px]">
                     <Image
@@ -344,7 +344,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               value={(formData as any).description || ""}
               onChange={handleChange}
               placeholder="Tell us a little about the project..."
-              className="border border-[#D0D5DD] bg-[#FFFFFF] text-[#000000] px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] resize-none focus:outline-none focus:ring-0"
+              className="border border-[#D0D5DD] bg-[#FFFFFF] text-[#000000] px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] resize-none focus:outline-none focus:ring-0 font-inter font-normal text-sm"
               style={{ height: "100px" }}
             />
           </div>

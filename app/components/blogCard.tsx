@@ -32,9 +32,7 @@ export default function BlogCard({
   };
   return (
     <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
-      {/* Image Placeholder or Image */}
-      <div className="bg-[#FEF9F5] rounded-[8px] sm:h-[324px] w-full relative overflow-hidden  h-[280px]">
-        {imageUrl && (
+       {imageUrl && (
           <Image
             src={imageUrl}
             alt="Blog Image"
@@ -43,8 +41,7 @@ export default function BlogCard({
             className=" rounded-[8px] sm:h-[324px] w-full h-[280px]"
           />
         )}
-      </div>
-
+   
       {/* Text Content */}
       <div className="flex flex-col gap-[5px]">
         <div className="flex justify-between items-center">

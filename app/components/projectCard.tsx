@@ -30,8 +30,7 @@ export default function ProjectCard({
 
   return (
     <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
-      {/* Image Placeholder or Image */}
-      <div className="bg-[#FEF9F5] rounded-[8px] sm:h-[324px] w-full relative overflow-hidden  h-[280px]">
+
         {imageUrl && (
           <Image
             src={imageUrl}
@@ -41,7 +40,7 @@ export default function ProjectCard({
             className=" rounded-[8px] sm:h-[324px] w-full h-[280px]"
           />
         )}
-      </div>
+    
 
       {/* Text Content */}
       <div className="flex flex-col gap-[5px]">

@@ -37,7 +37,7 @@ export default function StaticTestimonialCard({
         </div>
       )}
 
-      <p className="font-roboto font-normal sm:text-[16px] text-[#000000] leading-[24px] text-[14px]">
+      <p className="font-roboto font-normal sm:text-[16px] text-[#000000] leading-[24px] text-[14px] break-words whitespace-normal">
         {description}
       </p>
 
