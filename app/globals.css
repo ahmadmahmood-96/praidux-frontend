@@ -12,6 +12,10 @@
     @apply text-black;
   }
 }
+:root {
+  --bc: #FAFAFA;
+  --fallback-bc: #FAFAFA;
+}
 
 .font-poppins {
   font-family: var(--font-poppins), sans-serif;
@@ -24,9 +28,9 @@
   scrollbar-width: thin;
   scrollbar-color: #4194b4 #ecf0f1;
 }
-.dark * {
+/* .dark * {
   scrollbar-color: #096ad8 #1e293b;
-}
+} */
 .font-poppins {
   font-family: "Poppins", sans-serif;
 }
@@ -41,6 +45,31 @@ select:-webkit-autofill {
   -webkit-text-fill-color: #000 !important;
   background-color: transparent !important;
 }
+.blog-content h1 {
+  @apply text-4xl font-bold text-[#2D3748] ;
+}
+
+.blog-content h2 {
+  @apply text-3xl font-semibold text-[#2D3748] ;
+}
+
+.blog-content h3 {
+  @apply text-2xl font-semibold text-[#2D3748] ;
+}
+
+.blog-content h4 {
+   @apply text-lg font-medium text-[#2D3748] ;
+}
+
+.blog-content h5 {
+  @apply text-lg font-medium text-[#2D3748] ;
+}
+
+.blog-content h6 {
+  @apply text-base font-medium text-[#2D3748];
+}
+
+
 @keyframes slide-left {
   0% {
     transform: translateX(0);
@@ -51,7 +80,13 @@ select:-webkit-autofill {
 }
 
 .animate-slide {
-  animation: slide-left 30s linear infinite;
+  animation: slide-left 60s linear infinite;
+}
+.testimonial-slide {
+  animation: slide-left 60s linear infinite;
+}
+.testimonial-slide:hover {
+  animation-play-state: paused;
 }
 @keyframes slide-right {
   0% {
@@ -63,7 +98,7 @@ select:-webkit-autofill {
 }
 
 .animatedd-slide {
-  animation: slide-right 40s linear infinite;
+  animation: slide-right 80s linear infinite;
 }
 
 @font-face {
@@ -71,6 +106,20 @@ select:-webkit-autofill {
   src: url("/font/ClashDisplay_Complete/Fonts/OTF/ClashDisplay-Semibold.otf")
     format("opentype");
   font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/font/Satoshi_Complete/Fonts/OTF/Satoshi-Medium.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Helvetica";
+  src: url("/public/font/Helvetica-Bold.ttf")
+    format("ttf");
+  font-weight: 700;
   font-style: normal;
 }
 @media (max-width: 500px) {
@@ -140,5 +189,31 @@ select:-webkit-autofill {
 
   .project-slider-image.narrow {
     width: 90px;
+  }
+}
+.dots-loader {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.dots-loader span {
+  font-size: 24px;
+  animation: bounce 0.6s infinite ease-in-out;
+}
+
+.dots-loader span:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.dots-loader span:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
   }
 }

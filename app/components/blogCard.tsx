@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 type Category = {
   label: string;
   bgColor: string;
@@ -8,6 +8,7 @@ type Category = {
 
 type BlogCardProps = {
   author: string;
+  id:string;
   date: string;
   title: string;
   description: string;
@@ -17,33 +18,37 @@ type BlogCardProps = {
 
 export default function BlogCard({
   author,
+  id,
   date,
   title,
   description,
   imageUrl,
   categories = [],
 }: BlogCardProps) {
+   const router = useRouter(); // ✅ hook
+
+  const handleNavigation = () => {
+    router.push(`/blog/${id}`); // ✅ navigate to /blog/[id]
+  };
   return (
     <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
-      {/* Image Placeholder or Image */}
-      <div className="bg-[#FEF9F5] rounded-[8px] sm:h-[324px] w-full relative overflow-hidden  h-[280px]">
-        {imageUrl && (
+       {imageUrl && (
           <Image
             src={imageUrl}
             alt="Blog Image"
-            fill
-            className="object-cover rounded-[8px]"
+         width={450}
+         height={324}
+            className=" rounded-[8px] sm:h-[324px] w-full h-[280px]"
           />
         )}
-      </div>
-
+   
       {/* Text Content */}
       <div className="flex flex-col gap-[5px]">
         <div className="flex justify-between items-center">
-          <p className="font-poppins font-normal sm:text-[16px] text-[#161C2D] sm:leading-[28px] text-[14px] leading-[26px]">
+          <p className="font-Pop font-normal sm:text-[16px] text-[#161C2D] sm:leading-[28px] text-[14px] leading-[26px]">
             {author} • {date}
           </p>
-          <Image src="/arrow-up.svg" alt="arrow" className="cursor-pointer" width={24} height={24} />
+          <Image src="/arrow-up.svg" alt="arrow" className="cursor-pointer" width={24} height={24}  onClick={handleNavigation}/>
         </div>
 
         <p className="font-inter font-semibold sm:text-[24px] text-[#101828] sm:leading-[32px] text-[20px] leading-[28px]">

@@ -6,7 +6,8 @@ interface StaticTestimonialCardProps {
   imageSrc?: string; // Optional image
   name: string;
   role: string;
-  avatarColor?: string; // Optional fallback avatar color
+  avatarColor?: string;
+  projectLogo?: string; // Optional fallback avatar color
 }
 
 export default function StaticTestimonialCard({
@@ -15,6 +16,7 @@ export default function StaticTestimonialCard({
   imageSrc,
   name,
   role,
+  projectLogo,
   avatarColor = "#FF5F1F",
 }: StaticTestimonialCardProps) {
   return (
@@ -23,26 +25,29 @@ export default function StaticTestimonialCard({
         {title}
       </p>
 
-    {imageSrc && (
-  <div className="rounded-[8px] h-[239px] w-full relative ">
-    <Image
-      src={imageSrc}
-      alt={title}
-      fill
-      className=" rounded-[8px] w-fit"
-    />
-  </div>
-)}
+      {projectLogo && (
+        <div className="rounded-[8px] h-[239px] w-full relative ">
+          <Image
+            src={projectLogo}
+            alt={title}
+            width={450}
+            height={239}
+            className=" rounded-[8px] h-[239px] w-full"
+          />
+        </div>
+      )}
 
-      <p className="font-roboto font-normal sm:text-[16px] text-[#000000] leading-[24px] text-[14px]">
+      <p className="font-roboto font-normal sm:text-[16px] text-[#000000] leading-[24px] text-[14px] break-words whitespace-normal">
         {description}
       </p>
 
       <div className="flex gap-[16px] items-center">
-        <div
-          className="w-[36px] h-[36px] rounded-full"
-          style={{ backgroundColor: avatarColor }}
-        ></div>
+        {imageSrc && (
+          <div className="w-[36px] h-[36px] rounded-full relative overflow-hidden">
+            <Image src={imageSrc} alt={title} height={36} width={36} />
+          </div>
+        )}
+
         <div>
           <p className="font-clash font-semibold sm:text-[16px] text-[#000000] leading-[100%] text-[14px]">
             {name}

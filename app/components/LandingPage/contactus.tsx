@@ -1,20 +1,23 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
-import { MenuItem, Select, FormControl, InputLabel } from "@mui/material";
-
+import { useState, useRef } from "react";
+import client from "@/utils/client";
+import { message } from "antd";
 export default function Contactus() {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
-    countryCode: "+1",
-    countryName: "US",
+    // countryCode: "+1",
     description: "",
+    services: [] as string[],
+    file: null as File | null,
   });
+const [loading, setLoading] = useState(false);
 
-  const [selectOpen, setSelectOpen] = useState(false);
   const [checkedServices, setCheckedServices] = useState<string[]>([]);
+const fileInputRef = useRef<HTMLInputElement | null>(null);
+
 
   const countryOptions = [
     { name: "US", code: "+1" },
@@ -27,11 +30,18 @@ export default function Contactus() {
     ["AI Avatar", "NLP", "E-commerce", "Other"],
   ];
   const toggleService = (service: string) => {
-    setCheckedServices((prev) =>
-      prev.includes(service)
+    setCheckedServices((prev) => {
+      const newServices = prev.includes(service)
         ? prev.filter((s) => s !== service)
-        : [...prev, service]
-    );
+        : [...prev, service];
+
+      setFormData((prevData) => ({
+        ...prevData,
+        services: newServices,
+      }));
+
+      return newServices;
+    });
   };
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -44,32 +54,114 @@ export default function Contactus() {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    setSelectedFile(file || null);
+    const file = e.target.files?.[0] || null;
+    setSelectedFile(file);
+    setFormData((prev) => ({
+      ...prev,
+      file,
+    }));
   };
 
-  const handleCountryChange = (event: any) => {
-    const selected = countryOptions.find(
-      (item) => item.name === event.target.value
-    );
+ const handleRemoveFile = () => {
+  setSelectedFile(null);
+  setFormData((prev) => ({ ...prev, file: null }));
 
-    if (selected) {
-      setFormData((prev) => ({
-        ...prev,
-        countryName: selected.name,
-        countryCode: selected.code,
-      }));
-    }
-  };
+  if (fileInputRef.current) {
+    fileInputRef.current.value = "";
+  }
+};
 
-  const handleRemoveFile = () => {
+
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+ setLoading(true);
+  const { fullName, email, phone, description, services, file } = formData;
+
+   if (!fullName.trim()) {
+    message.warning("Full name is required.");
+    setLoading(false);
+    return;
+  }
+  if (!email.trim()) {
+    message.warning("Email is required.");
+    setLoading(false);
+    return;
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    message.warning("Please enter a valid email address.");
+    setLoading(false);
+    return;
+  }
+  if (!phone.trim()) {
+    message.warning("Phone number is required.");
+    setLoading(false);
+    return;
+  }
+  const phoneRegex = /^\+?[0-9]{7,15}$/;
+  if (!phoneRegex.test(phone)) {
+    message.warning("Please enter a valid phone number.");
+    setLoading(false);
+    return;
+  }
+  if (!description.trim()) {
+    message.warning("Description is required.");
+    setLoading(false);
+    return;
+  }
+  if (!services || services.length === 0) {
+    message.warning("Please select at least one service.");
+    setLoading(false);
+    return;
+  }
+  if (!file) {
+    message.warning("Please upload a file.");
+    setLoading(false);
+    return;
+  }
+  try {
+    const formPayload = new FormData();
+    formPayload.append("fullName", fullName);
+    formPayload.append("email", email);
+    formPayload.append("phone", phone);
+    // formPayload.append("countryCode", countryCode);
+    // formPayload.append("countryName", countryName);
+    formPayload.append("description", description);
+    formPayload.append("services", JSON.stringify(services));
+    if (file) formPayload.append("attachment", file);
+
+    await client.post("/contact/add-contact", formPayload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    message.success("Form submitted successfully!");
+
+    // Reset form
+    setFormData({
+      fullName: "",
+      email: "",
+      phone: "",
+      description: "",
+      services: [],
+      file: null,
+    });
+    setCheckedServices([]);
     setSelectedFile(null);
-  };
- 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    console.log("Form Submitted:", formData, selectedFile);
-  };
+    if (fileInputRef.current) {
+  fileInputRef.current.value = "";
+}
+  } catch (error) {
+    console.error("Submission failed:", error);
+    message.error("Submission failed. Please try again.");
+  }
+   finally {
+    setLoading(false);
+  }
+};
+
+
 
   return (
     <div className="py-[51px] px-[24px] flex gap-[40px] bg-[#FFFFFF]  xl:px-[100px] lg:px-[70px] md:px-[50px] definedcolDir">
@@ -82,7 +174,7 @@ export default function Contactus() {
             </p>
           </div>
           <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
-             Reach out for free consultations
+            Reach out for free consultations
           </p>
         </div>
 
@@ -103,7 +195,7 @@ export default function Contactus() {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="Your name"
-                className="border border-[#D0D5DD] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] text-[#000000] h-[48px] flex justify-center px-[16px] py-[12px] bg-[#FFFFFF] font-inter font-normal text-sm rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
 
@@ -122,7 +214,7 @@ export default function Contactus() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@company.com"
-                className="border border-[#D0D5DD] h-[48px] flex justify-center px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
+                className="border border-[#D0D5DD] text-[#000000] bg-[#FFFFFF] h-[48px] flex justify-center px-[16px] py-[12px] font-inter font-normal text-sm rounded-[8px] placeholder:text-[#667085] focus:outline-none focus:ring-0"
               />
             </div>
           </div>
@@ -136,93 +228,14 @@ export default function Contactus() {
               </label>
 
               <div className="flex border h-[48px] flex justify-center border-[#D0D5DD] rounded-[8px] overflow-hidden items-center px-[16px] py-[12px] gap-2">
-                {/* Country Name Dropdown */}
-                <FormControl
-                  variant="standard"
-                  sx={{
-                    minWidth: "fit-content", // 👈 Fit content
-                    cursor: "pointer",
-                  }}
-                >
-                  <Select
-                    value={formData.countryName}
-                    onChange={handleCountryChange}
-                    onOpen={() => setSelectOpen(true)}
-                    onClose={() => setSelectOpen(false)}
-                    disableUnderline
-                    IconComponent={() => (
-                      <Image
-                        src="/contact/arrow.svg"
-                        alt="dropdown"
-                        width={20}
-                        height={20}
-                        style={{
-                          transition: "transform 0.3s ease",
-                          transform: selectOpen
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)",
-                        }}
-                      />
-                    )}
-                    sx={{
-                      fontSize: "14px",
-                      fontFamily: "Inter", // ✅ Font for selected item
-                      color: "#101828",
-                      lineHeight: "100%",
-                      width: "fit-content",
-                      padding: 0, // ✅ Fit content width
-                      pr: 0,
-                      "& fieldset": { border: "none" },
-                      "& .MuiSelect-select": {
-                        paddingRight: "0px !important", // ✅ override padding
-                        paddingLeft: "0px !important", // optional, if you want no horizontal padding
-                        minWidth: "0px",
-                        display: "flex",
-                        alignItems: "center",
-                      },
-                    }}
-                    MenuProps={{
-                      PaperProps: {
-                        sx: {
-                          fontFamily: "Inter", // ✅ Font for dropdown items
-                          fontSize: "14px",
-                          fontWeight: "400",
-                          color: "#101828",
-                        },
-                      },
-                    }}
-                  >
-                    {countryOptions.map((item) => (
-                      <MenuItem
-                        key={item.name}
-                        value={item.name}
-                        sx={{
-                          fontFamily: "Inter",
-                          fontWeight: "400",
-                          fontSize: "14px",
-                          color: "#101828",
-                          lineHeight: "100%",
-                        }}
-                      >
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-
-                {/* Country Code (static) */}
-                <span className="text-sm text-gray-700 font-medium whitespace-nowrap">
-                  {formData.countryCode}
-                </span>
-
                 {/* Phone Input */}
                 <input
                   type="text"
-                  placeholder="(555) 000-0000"
+                  placeholder="+1 (555) 000-0000"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-0 py-[0px] text-sm focus:outline-none"
+                  className="w-full px-0 py-[0px] text-[#000000] bg-[#FFFFFF] font-inter font-normal text-sm focus:outline-none"
                 />
               </div>
             </div>
@@ -236,7 +249,8 @@ export default function Contactus() {
                   <input
                     type="file"
                     onChange={handleFileChange}
-                    className="hidden"
+                      ref={fileInputRef}
+                    className="hidden font-inter font-medium text-[12px] leading-[16px]"
                   />
                   <div className="bg-[#FF5F1F] text-white px-[16px] py-[10px] rounded-[8px] flex items-center gap-[8px]">
                     <Image
@@ -330,7 +344,7 @@ export default function Contactus() {
               value={(formData as any).description || ""}
               onChange={handleChange}
               placeholder="Tell us a little about the project..."
-              className="border border-[#D0D5DD] px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] resize-none focus:outline-none focus:ring-0"
+              className="border border-[#D0D5DD] bg-[#FFFFFF] text-[#000000] px-[16px] py-[12px] rounded-[8px] placeholder:text-[#667085] resize-none focus:outline-none focus:ring-0 font-inter font-normal text-sm"
               style={{ height: "100px" }}
             />
           </div>
@@ -339,7 +353,14 @@ export default function Contactus() {
             type="submit"
             className="bg-[#123042] text-white py-[12px] px-[24px] rounded-[40px] w-fit font-lato font-bold text-[16px] text-white leading-[100%]"
           >
-            Submit Request
+             {loading ? (
+                  <span className="dots-loader">
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                  </span>
+                ) : (
+           " Submit Request")}
           </button>
         </form>
       </div>
@@ -347,7 +368,13 @@ export default function Contactus() {
       {/* Contact Info Right Column */}
       <div className="max-w-[377px] flex flex-col gap-[40px] contact-box ">
         <div className="w-full md:h-[543px] rounded-[12px] bg-[#FF5F1F] flex items-end h-[300px]">
-          <Image src="/contact/play.png" alt="play" width={180} height={120} className="mb-[-35px] ml-[-20px]" />
+          <Image
+            src="/contact/play.png"
+            alt="play"
+            width={180}
+            height={120}
+            className="mb-[-35px] ml-[-20px]"
+          />
         </div>
         <div className="flex flex-col gap-[16px]">
           <p className="text-[#757575] text-[14.54px] leading-[150%]">

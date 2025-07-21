@@ -31,40 +31,42 @@ const Navbar: React.FC = () => {
     "Blogs",
     "Testimonials",
     "FAQs",
-    "Contact Us",
   ];
 
-  const Links: string[] = [
-    "/",
-    "/#how-it-works-section",
-    "/#features-section",
-    "/brokers",
-    "/blogs",
-  ];
+//  const Links: string[] = [
+//     "/",
+//     "/#how-it-works-section",
+//     "/#features-section",
+//     "/brokers",
+//     "/blogs",
+//   ];
 
-  const handleNav = async (index: number) => {
-    const scrollTargets = {
-      1: "how-it-works-section",
-      2: "features-section",
-      4: "blog-section",
-    } as Record<number, string>;
+ const scrollTargets: string[] = [
+  "project",
+  "process",
+  "blogs",
+  "static-testimonial",
+  "faq",
+  "contact-us", 
+];
 
-    const target = scrollTargets[index];
 
-    if (target) {
-      if (typeof window !== "undefined" && window.location.pathname === "/") {
-        // Scroll directly
-        document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
-      } else {
-        // Navigate then scroll via query
-        await router.push(`/?scrollTo=${target}`);
-      }
+const handleNav = async (index: number) => {
+  const target = scrollTargets[index];
+
+  if (target) {
+    if (typeof window !== "undefined" && window.location.pathname === "/") {
+      // Already on homepage, scroll directly
+      document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      router.push(Links[index]);
+      // Navigate to homepage and pass scroll param
+      await router.push(`/?scrollTo=${target}`);
     }
+  }
 
-    setDrawerOpen(false);
-  };
+  setDrawerOpen(false);
+};
+
 
   return (
     <AppBar position="static" className="navbar">
@@ -169,9 +171,7 @@ const Navbar: React.FC = () => {
                           background: "#FF5F1F",
                         },
                       }}
-                      // onClick={() => {
-                      //   router.push(isSignedIn ? "/dashboard" : "/login");
-                      // }}
+                       onClick={() => handleNav(scrollTargets.indexOf("contact-us"))}
                     >
                       Contact Us
                     </Button>
@@ -194,7 +194,8 @@ const Navbar: React.FC = () => {
               ))}
             </div>
             <div className="navbar-section login-right">
-              <button className="login-button cursor-pointer">Contact Us</button>
+              <button className="login-button cursor-pointer"
+               onClick={() => handleNav(scrollTargets.indexOf("contact-us"))}>Contact Us</button>
             </div>
           </>
         )}
