@@ -105,7 +105,7 @@ export default function Blog() {
 
       </div>
       {relatedBlogs.length > 0 && (
-        <div className="px-[24px] xl:px-[100px] lg:px-[70px] md:px-[50px] grid gap-4 md:grid-cols-2">
+        <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
             {relatedBlogs.map((item) => (
               <BlogCard
                 key={item._id}
