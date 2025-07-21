@@ -1,6 +1,7 @@
 import LandingPage from "./components/LandingPage";
 import { Metadata } from "next";
 import { Suspense } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 export const metadata: Metadata = {
   title: "Praidux",
   description:
@@ -9,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense  fallback={<CircularProgress sx={{ color: "#FF5F1F" }} size={50} thickness={5} />}>
       <main>
         <LandingPage />
       </main>

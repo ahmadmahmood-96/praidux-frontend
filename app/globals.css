@@ -12,6 +12,10 @@
     @apply text-black;
   }
 }
+:root {
+  --bc: #FAFAFA;
+  --fallback-bc: #FAFAFA;
+}
 
 .font-poppins {
   font-family: var(--font-poppins), sans-serif;
@@ -24,9 +28,9 @@
   scrollbar-width: thin;
   scrollbar-color: #4194b4 #ecf0f1;
 }
-.dark * {
+/* .dark * {
   scrollbar-color: #096ad8 #1e293b;
-}
+} */
 .font-poppins {
   font-family: "Poppins", sans-serif;
 }

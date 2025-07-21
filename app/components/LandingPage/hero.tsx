@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 export default function Hero() {
-  const router=useRouter();
-   const handleClick = () => {
+  const router = useRouter();
+  const handleClick = () => {
     router.push("/?scrollTo=contact-us");
   };
   return (
@@ -10,28 +10,31 @@ export default function Hero() {
       <div className="flex justify-center items-center">
         <div className="z-30 mr-[-10px]">
           <Image
+            priority
             height={39.2}
             width={39.2}
             src="/hero/p1.png"
-            alt="Person 1"
+            alt=" team member 1"
             className="rounded-full"
           />
         </div>
         <div className="z-20 mr-[-10px]">
           <Image
+            priority
             height={39.2}
             width={39.2}
             src="/hero/p2.png"
-            alt="Person 2"
+            alt="member 2"
             className="rounded-full"
           />
         </div>
         <div className="z-10">
           <Image
+            priority
             height={39.2}
             width={39.2}
             src="/hero/p3.png"
-            alt="Person 3"
+            alt="team member 3"
             className="rounded-full"
           />
         </div>
@@ -45,9 +48,10 @@ export default function Hero() {
           online brands.
         </p>
         <div className="flex gap-[24px] w-full justify-center items-center">
-          <button 
+          <button
             onClick={handleClick}
-            className="bg-[#FF5F1F] rounded-[40px] sm:px-[21px] sm:py-[12px] cursor-pointer border-none font-Pop font-medium  sm:text-[16px] leading-[100%] text-[#FFFFFF] text-[14px] px-[15px] py-[10px]">
+            className="bg-[#FF5F1F] rounded-[40px] sm:px-[21px] sm:py-[12px] cursor-pointer border-none font-Pop font-medium  sm:text-[16px] leading-[100%] text-[#FFFFFF] text-[14px] px-[15px] py-[10px]"
+          >
             Contact Us
           </button>
           <p className="font-roboto font-normal sm:text-[18px] text-[#000000] leading-[100%] text-[14px]">

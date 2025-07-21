@@ -7,7 +7,17 @@ import Faq from "@/app/components/LandingPage/faq";
 import { useState, useEffect } from "react";
 import client from "@/utils/client";
 import CircularProgress from "@mui/material/CircularProgress";
+import BlogCard from "@/app/components/blogCard";
 export default function Blog() {
+  type Blog = {
+  _id: string;
+  writerName: string;
+  createdAt: string;
+  blogImageUrl?: string;
+  blogTitle: string;
+  blogContent: string;
+  categories?: string[];
+};
   const router = useRouter();
   const { id } = useParams();
   const handleBack = () => {
@@ -15,21 +25,28 @@ export default function Blog() {
   };
   const [blog, setBlog] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
+   const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        const { data } = await client.get(`/blog/view-blog/${id}`);
-        // console.log("Blog Data", data);
-        setBlog(data.result);
-        // console.log("Blog Data", blog)
-      } catch (error) {
-        console.error("Failed to fetch project:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchBlogData = async (blogId: string) => {
+    setLoading(true);
+    try {
+      const { data } = await client.get(`/blog/view-blog/${blogId}`);
+      setBlog(data.result);
 
-    if (id) fetchBlog();
+      const { data: allBlogs } = await client.get(`/blog/listed-blogs?limit=3`);
+      const filtered = allBlogs.filter((b: Blog) => b._id !== blogId).slice(0, 2);
+      setRelatedBlogs(filtered);
+
+    } catch (error) {
+      console.error("Failed to fetch blog:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+     if (id && typeof id === "string") {
+      fetchBlogData(id);
+    }
   }, [id]);
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -61,7 +78,7 @@ export default function Blog() {
           </div>
           <Image
             src={blog?.blogImageUrl}
-           alt={blog.blogTitle || "Blog image"}
+            alt={blog.blogTitle || "Blog image"}
             width={1240}
             loading="lazy"
             height={456}
@@ -84,7 +101,33 @@ export default function Blog() {
           ></div>
         </div>
       </div>
-      <div className="flex gap-[16px]"></div>
+      <div className="px-[24px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
+
+      </div>
+      {relatedBlogs.length > 0 && (
+        <div className="px-[24px] xl:px-[100px] lg:px-[70px] md:px-[50px] grid gap-4 md:grid-cols-2">
+            {relatedBlogs.map((item) => (
+              <BlogCard
+                key={item._id}
+                id={item._id}
+                author={item.writerName}
+                title={item.blogTitle}
+                description={
+                  item.blogContent.length > 80
+                    ? item.blogContent.slice(0, 60) + "..."
+                    : item.blogContent
+                }
+                imageUrl={item.blogImageUrl || "/fallback.png"}
+                date={new Date(item.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              />
+            ))}
+         
+        </div>
+      )}
       <Faq />
       <RevenueIdea />
     </div>
