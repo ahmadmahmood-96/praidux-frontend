@@ -67,11 +67,11 @@ const { id } = useParams();
               <Image
                 src="/arrowback.svg"
                 alt="back"
-                width={14.5}
-                height={14.5}
+                width={20}
+                height={20}
               />
               <p className="font-inter font-semibold text-[10.15px] leading-[14.5px] text-[#344054]">
-                Home / Category / Project
+                Praidux | Project
               </p>
             </div>
             <p className="font-clash font-semibold text-[30px] sm:text-[40px] md:text-[46px] xl:text-[54px] leading-[40px] sm:leading-[50px] md:leading-[56px] xl:leading-[64px] text-[#000000]">

@@ -84,7 +84,7 @@ const handleNav = async (index: number) => {
             alt="Logo"
             width={83}
             height={28}
-            className="w-[73px] h-auto"
+            className="w-[90px] h-[30px]"
           />
         </div>
 

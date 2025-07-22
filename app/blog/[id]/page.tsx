@@ -10,14 +10,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 import BlogCard from "@/app/components/blogCard";
 export default function Blog() {
   type Blog = {
-  _id: string;
-  writerName: string;
-  createdAt: string;
-  blogImageUrl?: string;
-  blogTitle: string;
-  blogContent: string;
-  categories?: string[];
-};
+    _id: string;
+    writerName: string;
+    createdAt: string;
+    blogImageUrl?: string;
+    blogTitle: string;
+    blogContent: string;
+    categories?: string[];
+  };
   const router = useRouter();
   const { id } = useParams();
   const handleBack = () => {
@@ -25,26 +25,29 @@ export default function Blog() {
   };
   const [blog, setBlog] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
-   const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
+  const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
   useEffect(() => {
-  const fetchBlogData = async (blogId: string) => {
-    setLoading(true);
-    try {
-      const { data } = await client.get(`/blog/view-blog/${blogId}`);
-      setBlog(data.result);
+    const fetchBlogData = async (blogId: string) => {
+      setLoading(true);
+      try {
+        const { data } = await client.get(`/blog/view-blog/${blogId}`);
+        setBlog(data.result);
 
-      const { data: allBlogs } = await client.get(`/blog/listed-blogs?limit=3`);
-      const filtered = allBlogs.filter((b: Blog) => b._id !== blogId).slice(0, 2);
-      setRelatedBlogs(filtered);
+        const { data: allBlogs } = await client.get(
+          `/blog/listed-blogs?limit=3`
+        );
+        const filtered = allBlogs
+          .filter((b: Blog) => b._id !== blogId)
+          .slice(0, 2);
+        setRelatedBlogs(filtered);
+      } catch (error) {
+        console.error("Failed to fetch blog:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    } catch (error) {
-      console.error("Failed to fetch blog:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-     if (id && typeof id === "string") {
+    if (id && typeof id === "string") {
       fetchBlogData(id);
     }
   }, [id]);
@@ -71,9 +74,9 @@ export default function Blog() {
             className="border-[#D0D5DD] w-fit border-[0.72px] bg-[#FFFFFF] rounded-[5.8px] flex gap-[5.8px] items-center py-[7.25px] px-[11.6px] cursor-pointer"
             onClick={handleBack}
           >
-            <Image src="/arrowback.svg" alt="back" width={14.5} height={14.5} />
+            <Image src="/arrowback.svg" alt="back" width={20} height={20} />
             <p className="font-inter font-semibold text-[10.15px] leading-[14.5px] text-[#344054]">
-              Home / Blog
+              Praidux | Blog
             </p>
           </div>
           <Image
@@ -101,31 +104,28 @@ export default function Blog() {
           ></div>
         </div>
       </div>
-      <div className="px-[24px] xl:px-[100px] lg:px-[70px] md:px-[50px]">
-
-      </div>
+      <div className="px-[24px] xl:px-[100px] lg:px-[70px] md:px-[50px]"></div>
       {relatedBlogs.length > 0 && (
         <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
-            {relatedBlogs.map((item) => (
-              <BlogCard
-                key={item._id}
-                id={item._id}
-                author={item.writerName}
-                title={item.blogTitle}
-                description={
-                  item.blogContent.length > 80
-                    ? item.blogContent.slice(0, 60) + "..."
-                    : item.blogContent
-                }
-                imageUrl={item.blogImageUrl || "/fallback.png"}
-                date={new Date(item.createdAt).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              />
-            ))}
-         
+          {relatedBlogs.map((item) => (
+            <BlogCard
+              key={item._id}
+              id={item._id}
+              author={item.writerName}
+              title={item.blogTitle}
+              description={
+                item.blogContent.length > 80
+                  ? item.blogContent.slice(0, 60) + "..."
+                  : item.blogContent
+              }
+              imageUrl={item.blogImageUrl || "/fallback.png"}
+              date={new Date(item.createdAt).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            />
+          ))}
         </div>
       )}
       <Faq />

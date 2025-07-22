@@ -31,14 +31,16 @@ export default function BlogCard({
     router.push(`/blog/${id}`); // ✅ navigate to /blog/[id]
   };
   return (
-    <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
+    <div 
+     onClick={handleNavigation}
+    className=" group p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full cursor-pointer hover:shadow-md transition-shadow duration-300">
        {imageUrl && (
           <Image
             src={imageUrl}
             alt="Blog Image"
          width={450}
          height={324}
-            className=" rounded-[8px] sm:h-[324px] w-full h-[280px]"
+            className=" rounded-[8px] sm:h-[324px] w-full h-[280px] transition-transform duration-300 group-hover:scale-[1.03]"
           />
         )}
    
@@ -48,7 +50,11 @@ export default function BlogCard({
           <p className="font-Pop font-normal sm:text-[16px] text-[#161C2D] sm:leading-[28px] text-[14px] leading-[26px]">
             {author} • {date}
           </p>
-          <Image src="/arrow-up.svg" alt="arrow" className="cursor-pointer" width={24} height={24}  onClick={handleNavigation}/>
+          <Image src="/arrow-up.svg" alt="arrow" width={24} height={24}   className="cursor-pointer transition-transform duration-300 group-hover:rotate-45"
+            onClick={(e) => {
+              e.stopPropagation(); 
+              handleNavigation();
+            }}/>
         </div>
 
         <p className="font-inter font-semibold sm:text-[24px] text-[#101828] sm:leading-[32px] text-[20px] leading-[28px]">

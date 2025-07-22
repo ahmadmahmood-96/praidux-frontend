@@ -29,18 +29,19 @@ export default function ProjectCard({
   };
 
   return (
-    <div className="p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full">
-
-        {imageUrl && (
-          <Image
-            src={imageUrl}
-            alt="Blog Image"
-            width={450}
-            height={324}
-            className=" rounded-[8px] sm:h-[324px] w-full h-[280px]"
-          />
-        )}
-    
+    <div
+      onClick={handleNavigate}
+      className="group p-4 flex flex-col gap-5 bg-white rounded-[16px] w-full cursor-pointer hover:shadow-md transition-shadow duration-300"
+    >
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt="Blog Image"
+          width={450}
+          height={324}
+          className=" rounded-[8px] sm:h-[324px] w-full h-[280px] transition-transform duration-300 group-hover:scale-[1.03]"
+        />
+      )}
 
       {/* Text Content */}
       <div className="flex flex-col gap-[5px]">
@@ -50,7 +51,10 @@ export default function ProjectCard({
           </p>
           <div
             className="flex gap-[10px] items-center cursor-pointer"
-            onClick={handleNavigate}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNavigate();
+            }}
           >
             <p className="font-inter font-[medium] text-[14px] text-[#123042] leading-[20px]">
               View
@@ -58,7 +62,7 @@ export default function ProjectCard({
             <Image
               src="/arrow-up.svg"
               alt="arrow"
-              className="cursor-pointer"
+              className="transition-transform duration-300 group-hover:rotate-45"
               width={24}
               height={24}
             />
