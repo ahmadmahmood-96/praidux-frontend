@@ -27,7 +27,7 @@ const handleNav = async (index: number) => {
   return (
     <footer className="w-full bg-[#123042] py-[34px] px-[24px] flex flex-col gap-[24px] lg:px-[100px] md:px-[50px]">
       <div className="flex justify-between lg:items-center gap-[30px] flex-col lg:flex-row items-start">
-        <Image src="/praiduxWhite.png" alt="Logo" width={83} height={28} />
+        <Image src="/praiduxWhite.png" alt="Logo" width={83} height={28}  className="w-[90px] h-[30px]"/>
         <div className="flex gap-[20px] sm:flex-row flex-col">
           <p className="font-roboto font-normal md:text-[16px] text-white leading-[100%] cursor-pointer text-[14px]"
            onClick={() => handleNav(0)}>
