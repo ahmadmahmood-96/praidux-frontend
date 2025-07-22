@@ -23,35 +23,46 @@ export default function VideoTestimonial() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    const fetchTestimonials = async (): Promise<void> => {
-      try {
-        const { data } = await client.get(
-          "/videoTestimonial/view-listed-video-testimonials"
-        );
-        // console.log("data", data?.result);
-        setTestimonials(data?.result);
-      } catch (err) {
-        console.error("Failed to fetch testimonials", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const controller = new AbortController();
 
-    fetchTestimonials();
-  }, []);
+  const fetchTestimonials = async (): Promise<void> => {
+    try {
+      const { data } = await client.get(
+        "/videoTestimonial/view-listed-video-testimonials",
+        { signal: controller.signal }
+      );
+      setTestimonials(data?.result);
+    } catch (err: any) {
+      if (err.name === "CanceledError" || err.name === "AbortError") {
+        console.log("Fetch aborted");
+      } else {
+        console.error("Failed to fetch testimonials", err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchTestimonials();
+
+  return () => {
+    controller.abort(); // Cleanup on unmount
+  };
+}, []);
+
   return (
     <div className="flex flex-col gap-[16px] py-[51px]">
       <div className="flex flex-col px-[24px]  xl:px-[100px] lg:px-[70px] md:px-[50px] items-center">
         <div className="flex flex-col items-center gap-[8px]">
           <div className="flex gap-[8px] items-center">
             <Image src="/dot.svg" alt="dot" width={9} height={9} />
-            <p className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
+            <span className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
               150+ Satisfied Clients
-            </p>
+            </span>
           </div>
-          <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+          <h2 className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
             Don’t just take our words
-          </p>
+          </h2>
         </div>
       </div>
       <div className="w-full overflow-hidden">
@@ -64,14 +75,14 @@ export default function VideoTestimonial() {
             />
           </div>
         ) : (
-          <div className="flex w-max gap-[16px] testimonial-slide group">
+          <section className="flex w-max gap-[16px] testimonial-slide group">
             {testimonials.map((testimonial, index) => (
               <VideoTestCard
                 key={`${testimonial._id}-${index}`}
                 testimonial={testimonial}
               />
             ))}
-          </div>
+          </section>
         )}
       </div>
     </div>

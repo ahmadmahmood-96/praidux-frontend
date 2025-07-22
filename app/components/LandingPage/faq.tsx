@@ -38,21 +38,33 @@ const handleBookAppointment = async () => {
 };
 
 
-  useEffect(() => {
-    const fetchFaq = async (): Promise<void> => {
-      try {
-        const { data } = await client.get("/faq/view-faqs");
-        // console.log("data", data);
-        setfaq(data);
-      } catch (err) {
-        console.error("Failed to fetch faq", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+ useEffect(() => {
+  const controller = new AbortController();
 
-    fetchFaq();
-  }, []);
+  const fetchFaq = async (): Promise<void> => {
+    try {
+      const { data } = await client.get("/faq/view-faqs", {
+        signal: controller.signal, 
+      });
+      setfaq(data);
+    } catch (err: any) {
+      if (err.name === "CanceledError" || err.code === "ERR_CANCELED") {
+        console.log("Request was cancelled");
+      } else {
+        console.error("Failed to fetch faq", err);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchFaq();
+
+  return () => {
+    controller.abort(); 
+  };
+}, []);
+
 
   return (
     <div className="px-[24px] py-[51px] flex gap-[16px]  xl:px-[100px] lg:px-[70px] md:px-[50px] lg:flex-row flex-col">
@@ -60,13 +72,13 @@ const handleBookAppointment = async () => {
         <div className="flex flex-col gap-[8px]">
           <div className="flex gap-[8px] items-center">
             <Image src="/dot.svg" alt="dot" width={9} height={9} />
-            <p className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
+            <span className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
               FAQs
-            </p>
+            </span>
           </div>
-          <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+          <h2 className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
             Frequently asked questions about us.
-          </p>
+          </h2>
         </div>
         <div className="sm:px-[24px] lg:py-[16px] flex lg:gap-[24px] bg-[#FF5F1F] rounded-[16px] justify-between p-[15px] gap-[15px] flex-row flex-col-450">
           <div>

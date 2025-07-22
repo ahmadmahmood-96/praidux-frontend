@@ -27,21 +27,34 @@ export default function Project() {
   const buttons = ["All", "Web", "Mobile", "IOS"];
 
   // ✅ Fetch initial projects (6)
-  useEffect(() => {
-    const fetchInitialProjects = async () => {
-      try {
-        const res = await client.get(`/project/public-projects?skip=0&limit=${limit}`);
-        setProjects(res.data);
-        setSkip(res.data.length); // update skip based on returned count
-        setHasMore(res.data.length === limit); // hide load more if fewer than limit
-      } catch (err) {
+useEffect(() => {
+  const controller = new AbortController();
+
+  const fetchInitialProjects = async () => {
+    try {
+      const res = await client.get(`/project/public-projects?skip=0&limit=${limit}`, {
+        signal: controller.signal,
+      });
+      setProjects(res.data);
+      setHasMore(res.data.length === limit); // hide "Load More" if fewer than limit
+    } catch (err: any) {
+      if (err.name === "CanceledError" || err.name === "AbortError") {
+        console.log("Request aborted");
+      } else {
         console.error("Error fetching initial projects:", err);
-      } finally {
-        setLoading(false);
       }
-    };
-    fetchInitialProjects();
-  }, []);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchInitialProjects();
+
+  return () => {
+    controller.abort(); // Cleanup: abort request on unmount
+  };
+}, []);
+
 
   // ✅ Load more handler
   const fetchMoreProjects = async () => {
@@ -86,13 +99,13 @@ export default function Project() {
         <div className="flex flex-col items-center">
           <div className="flex gap-[8px] items-center">
             <Image src="/dot.svg" alt="dot" width={9} height={9} priority />
-            <p className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
+            <span className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
               Projects
-            </p>
+            </span>
           </div>
-          <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px] md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+          <h2 className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px] md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
             Our Recent Projects
-          </p>
+          </h2>
           <p className="font-roboto font-normal text-[14px] sm:text-[16px] md:text-[18px] leading-[100%] text-black">
             We&apos;re a design & development partner for startup founders and
             online brands.
@@ -117,7 +130,7 @@ export default function Project() {
       </div>
 
       {/* Project Grid */}
-      <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
+      <section className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
         {loading ? (
           <div className="col-span-full flex justify-center items-center py-8">
             <CircularProgress sx={{ color: "#FF5F1F" }} size={50} thickness={5} />
@@ -138,7 +151,7 @@ export default function Project() {
             />
           ))
         )}
-      </div>
+      </section>
 
       {/* Load More Button */}
       {hasMore && !loading && (

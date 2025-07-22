@@ -26,20 +26,34 @@ export default function Blogs() {
   const limit = 6;
 
 useEffect(() => {
+  const controller = new AbortController();
+
   const fetchInitialBlogs = async () => {
     try {
-      const { data } = await client.get(`/blog/listed-blogs?skip=0&limit=6`);
-      setBlogs(data); 
-      if (data.length < 6) setHasMore(false); // Hide "View More" if less than 6
-      setSkip(data.length); // Skip starts from number of blogs fetched
-    } catch (err) {
-      console.error("Error fetching blogs:", err);
+      const { data } = await client.get(`/blog/listed-blogs?skip=0&limit=6`, {
+        signal: controller.signal,
+      });
+      setBlogs(data);
+      if (data.length < 6) setHasMore(false); 
+      setSkip(data.length); 
+    } catch (err: any) {
+      if (err.name === "CanceledError" || err.name === "AbortError") {
+        console.log("Blog fetch aborted");
+      } else {
+        console.error("Error fetching blogs:", err);
+      }
     } finally {
       setLoading(false);
     }
   };
+
   fetchInitialBlogs();
+
+  return () => {
+    controller.abort(); 
+  };
 }, []);
+
 
   const colorList = [
     { bgColor: "#EEF4FF", textColor: "#3538CD" },
@@ -73,13 +87,13 @@ const loadMoreBlogs = async () => {
       <div className="flex flex-col gap-[8px] xl:px-[100px] px-[0]">
         <div className="flex gap-[8px] items-center">
           <Image src="/dot.svg" alt="dot" width={9} height={9} />
-          <p className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
+          <span className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
             Blogs
-          </p>
+          </span>
         </div>
-        <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+        <h2 className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
           What our experts and modern tech world say in our blogs
-        </p>
+        </h2>
         <p className="font-Pop font-normal text-[18px] text-[#000000] leading-[140%]">
           We thrive on pushing boundaries and exploring new ideas. By embracing
           the latest technologies and creative approaches, we ensure that every
@@ -93,7 +107,7 @@ const loadMoreBlogs = async () => {
           <CircularProgress style={{ color: "#FF5F1F" }} />
         </div>
       ) : (
-        <div className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
+        <section className="grid gap-[16px] justify-center 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 xl:px-[100px] px-[0]">
           {blogs.map((blog, index) => {
             const formattedCategories =
               blog.categories?.map((cat: string, idx: number) => ({
@@ -124,7 +138,7 @@ const loadMoreBlogs = async () => {
               />
             );
           })}
-        </div>
+        </section>
       )}
 
       {/* Load More */}

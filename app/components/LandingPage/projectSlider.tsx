@@ -1,23 +1,23 @@
 import Image from "next/image";
 
 const line1Images = [
-  { src: "/slider/lineAp1.png", w: 492, h: 315.9 },
-  { src: "/slider/lineAp2.png", w: 145.8, h: 315.9 },
-  { src: "/slider/lineAp3.png", w: 492.4, h: 315.9 },
-  { src: "/slider/lineAp4.png", w: 492.4, h: 315.9 },
-  { src: "/slider/lineAp5.png", w: 145.8, h: 315.9 },
+  { src: "/slider/lineAp1.webp", w: 492, h: 315.9 },
+  { src: "/slider/lineAp2.webp", w: 145.8, h: 315.9 },
+  { src: "/slider/lineAp3.webp", w: 492.4, h: 315.9 },
+  { src: "/slider/lineAp4.webp", w: 492.4, h: 315.9 },
+  { src: "/slider/lineAp5.webp", w: 145.8, h: 315.9 },
 ];
 
 const line2Images = [
-  { src: "/slider/l2Ap1.png", w: 492, h: 315.9 },
-  { src: "/slider/l2Ap2.png", w: 145.8, h: 315.9 },
-  { src: "/slider/l2Ap3.png", w: 540.5, h: 315.9 },
-  { src: "/slider/l2Ap4.png", w: 145.8, h: 315.9 },
-  { src: "/slider/l2Ap5.png", w: 145.8, h: 315.9 },
-  { src: "/slider/l2Ap6.png", w: 145.8, h: 315.9 },
-  { src: "/slider/l2Ap7.png", w: 492.4, h: 315.9 },
-  { src: "/slider/l2Ap8.png", w: 145.8, h: 315.9 },
-  { src: "/slider/l2Ap9.png", w: 145.8, h: 315.9 },
+  { src: "/slider/l2Ap1.webp", w: 492, h: 315.9 },
+  { src: "/slider/l2Ap2.webp", w: 145.8, h: 315.9 },
+  { src: "/slider/l2Ap3.webp", w: 540.5, h: 315.9 },
+  { src: "/slider/l2Ap4.webp", w: 145.8, h: 315.9 },
+  { src: "/slider/l2Ap5.webp", w: 145.8, h: 315.9 },
+  { src: "/slider/l2Ap6.webp", w: 145.8, h: 315.9 },
+  { src: "/slider/l2Ap7.webp", w: 492.4, h: 315.9 },
+  { src: "/slider/l2Ap8.webp", w: 145.8, h: 315.9 },
+  { src: "/slider/l2Ap9.webp", w: 145.8, h: 315.9 },
 ];
 
 const renderImageSet = (images: typeof line1Images, repeatCount = 3) =>

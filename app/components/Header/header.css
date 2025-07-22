@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #FAFAFA !important;
+  background-color: #fafafa !important;
   box-shadow: none !important;
   padding-left: 100px !important;
   padding-right: 100px !important;
@@ -28,21 +28,53 @@
 }
 
 .navbar-items {
-  /* font-family: Roboto !important; */
+  position: relative;
   font-weight: 400 !important;
-  font-style: Regular !important;
-  font-size: 14px !important;
-  leading-trim: NONE;
+  font-size: 16px !important;
   line-height: 100%;
-  letter-spacing: 0%;
   cursor: pointer !important;
   color: #727272 !important;
+  padding-bottom: 6px;
+  display: inline-block; /* This is KEY */
 }
 
 .navbar-items:hover {
-  /* font-family: Roboto !important; */
   font-weight: 500 !important;
   color: #000 !important;
+}
+
+.navbar-items::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #FF5F1F;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.navbar-items:hover::after {
+  transform: scaleX(1);
+}
+.active-nav {
+  font-weight: 500 !important;
+  color: #000 !important;
+}
+
+.active-nav::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #FF5F1F;
+  transform: scaleX(1); /* Always visible */
+  transform-origin: left;
+  transition: transform 0.3s ease;
 }
 
 .logo {
@@ -85,8 +117,8 @@
   box-shadow: none;
   border: none;
 }
-.login-button:hover{
-    opacity: 0.8;
+.login-button:hover {
+  opacity: 0.8;
 }
 .drawer-list {
   width: 240px;
@@ -95,24 +127,9 @@
 }
 
 @media (max-width: 1200px) {
-  .navbar-items {
-    font-size: 14px !important;
-  }
-
   .centerdiv {
     gap: 20px !important;
   }
-}
-
-@media (max-width: 1200px) {
-  .navbar-items {
-    font-size: 13px !important;
-  }
-
-  .centerdiv {
-    gap: 16px !important;
-  }
-
   .navbar {
     padding-left: 80px !important;
     padding-right: 80px !important;
@@ -139,10 +156,10 @@
     padding-right: 20px !important;
   }
 
-  .logo-image {
+  /* .logo-image {
     width: 150px;
     height: auto;
-  }
+  } */
 }
 
 @media (max-width: 460px) {

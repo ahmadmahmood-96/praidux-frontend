@@ -1,5 +1,4 @@
 "use client";
-import Head from "next/head";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Poppins, Roboto, Inter, Lato, Caveat } from "next/font/google";
@@ -48,9 +47,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-       {/* <Head>
-        <link rel="icon" href="/favicon.png" sizes="16x16" />
-      </Head> */}
       <body
         className={`${poppins.variable} ${lato.variable} ${roboto.variable} ${inter.variable} ${caveat.variable} bg-[#FAFAFA] font-poppins`}
       >

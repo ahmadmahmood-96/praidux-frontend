@@ -33,15 +33,15 @@ export default function ManagementValue() {
         <div className="flex flex-col gap-[8px]">
           <div className="flex gap-[8px] items-center">
             <Image src="/dot.svg" alt="dot" width={9} height={9} />
-            <p className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
+            <span className="font-Pop font-semibold text-[16px] text-[#123042] leading-[25.2px]">
               Management & Values
-            </p>
+            </span>
           </div>
-         <p className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
+         <h2 className="font-clash font-semibold lg:text-[38px] text-[#000000] lg:leading-[48px]  md:text-[28px] md:leading-[38px] text-[24px] leading-[34px]">
              How we elevate the ideas to greater userbase?
-          </p>
+          </h2>
         </div>
-        <div className="flex flex-col">
+        <section className="flex flex-col">
           {steps.map((step, index) => (
             <div
               key={index}
@@ -66,7 +66,7 @@ export default function ManagementValue() {
               </p>
             </div>
           ))}
-        </div>
+        </section>
       </div>
     </div>
   );

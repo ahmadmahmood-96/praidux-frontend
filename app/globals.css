@@ -3,7 +3,7 @@
 @tailwind utilities;
 @import "~react-toastify/dist/ReactToastify.min.css";
 
-@layer utilities {
+/* @layer utilities {
   .select-black-placeholder .ant-select-selection-placeholder {
     @apply text-black;
   }
@@ -11,7 +11,7 @@
   .select-black-icon.ant-select .ant-select-arrow {
     @apply text-black;
   }
-}
+} */
 :root {
   --bc: #FAFAFA;
   --fallback-bc: #FAFAFA;

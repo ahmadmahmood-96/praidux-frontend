@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import "./header.css";
@@ -32,44 +32,56 @@ const Navbar: React.FC = () => {
     "Testimonials",
     "FAQs",
   ];
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const scrollTargets: string[] = [
+    "project",
+    "process",
+    "blogs",
+    "static-testimonial",
+    "faq",
+    "contact-us",
+  ];
 
-//  const Links: string[] = [
-//     "/",
-//     "/#how-it-works-section",
-//     "/#features-section",
-//     "/brokers",
-//     "/blogs",
-//   ];
+  const handleNav = async (index: number) => {
+    const target = scrollTargets[index];
 
- const scrollTargets: string[] = [
-  "project",
-  "process",
-  "blogs",
-  "static-testimonial",
-  "faq",
-  "contact-us", 
-];
-
-
-const handleNav = async (index: number) => {
-  const target = scrollTargets[index];
-
-  if (target) {
-    if (typeof window !== "undefined" && window.location.pathname === "/") {
-      // Already on homepage, scroll directly
-      document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
-    } else {
-      // Navigate to homepage and pass scroll param
-      await router.push(`/?scrollTo=${target}`);
+    if (target) {
+      if (typeof window !== "undefined" && window.location.pathname === "/") {
+        // Already on homepage, scroll directly
+        document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+      } else {
+        // Navigate to homepage and pass scroll param
+        await router.push(`/?scrollTo=${target}`);
+      }
     }
-  }
+    setActiveIndex(index);
+    setDrawerOpen(false);
+  };
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = 120; // adjust based on navbar height
+      let currentSectionIndex = null;
 
-  setDrawerOpen(false);
-};
+      for (let i = 0; i < scrollTargets.length; i++) {
+        const section = document.getElementById(scrollTargets[i]);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= offset && rect.bottom > offset) {
+            currentSectionIndex = i;
+            break;
+          }
+        }
+      }
 
+      setActiveIndex(currentSectionIndex);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <AppBar position="static" className="navbar">
+    <AppBar position="sticky" className="navbar">
       <Toolbar
         className="toolbar"
         sx={{
@@ -84,7 +96,7 @@ const handleNav = async (index: number) => {
             alt="Logo"
             width={83}
             height={28}
-            className="w-[90px] h-[30px]"
+            className="w-[120px] h-[40px]"
           />
         </div>
 
@@ -164,14 +176,16 @@ const handleNav = async (index: number) => {
                         fontSize: "14px",
                         width: "fit-content",
                         textTransform: "none",
-                        cursor:"pointer",
+                        cursor: "pointer",
                         boxShadow: "none",
                         "&:hover": {
                           opacity: 0.95,
                           background: "#FF5F1F",
                         },
                       }}
-                       onClick={() => handleNav(scrollTargets.indexOf("contact-us"))}
+                      onClick={() =>
+                        handleNav(scrollTargets.indexOf("contact-us"))
+                      }
                     >
                       Contact Us
                     </Button>
@@ -186,7 +200,9 @@ const handleNav = async (index: number) => {
               {menuItems.map((item, index) => (
                 <p
                   key={index}
-                  className="navbar-items font-roboto font-normal hover:font-semibold"
+                  className={`navbar-items font-Pop font-normal hover:font-semibold ${
+                    activeIndex === index ? "active-nav" : ""
+                  }`}
                   onClick={() => handleNav(index)}
                 >
                   {item}
@@ -194,8 +210,12 @@ const handleNav = async (index: number) => {
               ))}
             </div>
             <div className="navbar-section login-right">
-              <button className="login-button cursor-pointer"
-               onClick={() => handleNav(scrollTargets.indexOf("contact-us"))}>Contact Us</button>
+              <button
+                className="login-button cursor-pointer"
+                onClick={() => handleNav(scrollTargets.indexOf("contact-us"))}
+              >
+                Contact Us
+              </button>
             </div>
           </>
         )}
