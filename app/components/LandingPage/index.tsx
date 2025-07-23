@@ -1,16 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
-import Faq from "./faq";
-import Contactus from "./contactus";
+import dynamic from 'next/dynamic';
+
+// Static components (load normally)
 import Hero from "./hero";
 import ProjectSlider from "./projectSlider";
-import ManagementValue from "./managementValues";
-import StaticTestimonial from "./staticTestimonial";
-import Blogs from "./blogs";
 import Process from "./process";
-import Project from "./project";
-import VideoTestimonial from "./videoTestimonial";
+
+// Dynamic components
+const Faq = dynamic(() => import('./faq'), { ssr: false });
+const Contactus = dynamic(() => import('./contactus'), { ssr: false });
+const StaticTestimonial = dynamic(() => import('./staticTestimonial'), { ssr: false });
+const Blogs = dynamic(() => import('./blogs'), { ssr: false });
+const Project = dynamic(() => import('./project'), { ssr: false });
+const VideoTestimonial = dynamic(() => import('./videoTestimonial'), { ssr: false });
+const ManagementValue = dynamic(() => import('./managementValues'), { ssr: false });
+
 import { useSearchParams } from "next/navigation";
 
 export default function LandingPage() {

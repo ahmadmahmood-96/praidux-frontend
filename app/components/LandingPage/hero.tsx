@@ -39,9 +39,9 @@ export default function Hero() {
           />
         </div>
       </div>
-      <p className="font-clash font-semibold text-[32px] leading-[42px] lg:text-[54px] text-[#000000] lg:leading-[64px] text-center md:text-[44px] md:leading-[54px] hero-font">
+      <h1 className="font-clash font-semibold text-[32px] leading-[42px] lg:text-[54px] text-[#000000] lg:leading-[64px] text-center md:text-[44px] md:leading-[54px] hero-font">
         Your Ultimate Software <br /> Solutions Partner
-      </p>
+      </h1>
       <div className="flex flex-col gap-[18px] items-center">
         <p className="font-roboto text-center font-normal text-[14px] text-[#000000] leading-[100%] sm:text-[16px] md:text-[18px] ">
           We&apos;re a design &amp; development partner for startup founders and
