@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function RevenueIdea() {
-  const router = useRouter(); // ✅ hook
+  const router = useRouter(); 
 
   const handleClick = () => {
     router.push("/?scrollTo=contact-us");
